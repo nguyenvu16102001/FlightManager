@@ -4,11 +4,6 @@
     {% if current_user.is_authenticated %}
     {% else %}
         {% block login %}
-            {% if err_msg %}
-                <div class="alert alert-danger">
-                    <h4>{{ err_msg }}</h4>
-                </div>
-            {% endif %}
             {% include 'admin/login.html' %}
         {% endblock %}
     {% endif %}

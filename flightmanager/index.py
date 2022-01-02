@@ -12,12 +12,11 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/user-register', methods=['get', 'post'])
+@app.route('/register', methods=['get', 'post'])
 def user_register():
     err_msg = ''
-    if request.args.__eq__('POST'):
+    if request.method.__eq__('POST'):
         first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
         last_name = request.form.get('last_name')
         gender = request.form.get('gender')
         date_of_birth = request.form.get('date_of_birth')
@@ -32,12 +31,16 @@ def user_register():
         avatar_path = None
 
         try:
-            if password.strip().__eq__(confirm.strip()):
-                avatar = request.args.get('avatar')
+            if password.strip().__eq__(confirm):
+                avatar = request.files.get('avatar')
                 if avatar:
                     res = cloudinary.uploader.upload(avatar)
                     avatar_path = res['secure_url']
-                    return redirect(url_for('user_login'))
+                utils.register_customer(first_name=first_name, last_name=last_name, gender=gender,
+                                        date_of_birth=date_of_birth, identity_card=identity_card,
+                                        nationality=nationality, avatar=avatar_path, address=address,
+                                        phone=phone, email=email, username=username, password=password)
+                return redirect(url_for('user_login'))
             else:
                 err_msg = 'Mật khẩu không khớp'
         except Exception as ex:
@@ -49,6 +52,8 @@ def user_register():
 @app.route('/user-login', methods=['get', 'post'])
 def user_login():
     msg = ''
+    username = ''
+    password = ''
     if request.method.__eq__('POST'):
         username = request.form.get('username')
         password = request.form.get('password')
@@ -87,8 +92,8 @@ def admin_login():
 
 
 @login.user_loader
-def load_user(user_id):
-    return utils.get_user_by_id(user_id=user_id)
+def load_user(account_id):
+    return utils.get_account_by_id(account_id=account_id)
 
 
 if __name__ == '__main__':
