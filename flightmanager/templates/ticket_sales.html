@@ -1,0 +1,22 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Bán Vé{% endblock %}
+
+{% block header %}
+    {% include 'layout/header_ticket_sales.html' %}
+{% endblock %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+    <h1>Chào mừng bạn đến trang đặt vé</h1>
+    {% else %}
+        {% if err_msg %}
+            <div class="alert alert-danger">
+                <h4>{{ err_msg }}</h4>
+            </div>
+        {% endif %}
+        {% block login %}
+            {% include 'employee_login.html' %}
+        {% endblock %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Lập Lịch Chuyến Bay{% endblock %}
+
+{% block header %}
+    {% include 'layout/header_ticket_sales.html' %}
+{% endblock %}
+
+{% block content %}
+  {% if err_msg %}
+      <div class="alert alert-danger">
+          <h4>{{ err_msg }}</h4>
+      </div>
+  {% endif %}
+  <div class="container">
+    <form method="post" action="{{ url_for('flight_scheduling') }}">
+      <table class="table table-bordered">
+        <thead>
+          <tr >
+            <th colspan="4">LỊCH CHUYẾN BAY</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">
+              <div class="form-group">
+                <label for="flight_id">Mã chuyến bay:</label>
+                <input type="text" class="form-control" name="flight_id" placeholder="Mã chuyến bay" id="flight_id" required>
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="form-group">
+                <label for="airplane_id">Mã máy bay:</label>
+                <input list="airplanes" class="form-control" name="airplane_id" placeholder="Mã máy bay" id="airplane_id" required>
+                <datalist id="airplanes">
+                  {% for a in airplanes %}
+                  <option value="{{ a.airplane_id }}">
+                  {% endfor %}
+                </datalist>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div class="form-group">
+                <label for="departure_airport">Sân bay đi:</label>
+                <input list="departure_airports" class="form-control" name="departure_airport" placeholder="Sân bay đi" id="departure_airport" required>
+                <datalist id="departure_airports">
+                  {% for a in airports %}
+                    <option value="{{ a.airport_id }}">
+                  {% endfor %}
+                </datalist>
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="form-group">
+                <label for="arrival_airport">Sân bay đến:</label>
+                <input list="arrival_airports" class="form-control" name="arrival_airport" placeholder="Sân bay đến" id="arrival_airport" required>
+                <datalist id="arrival_airports">
+                  {% for a in airports %}
+                    <option value="{{ a.airport_id }}">
+                  {% endfor %}
+                </datalist>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+            <div class="form-group">
+                <label for="departure_day">Ngày giờ</label>
+                <input type="datetime-local" class="form-control" id="departure_day" name="departure_day" placeholder="Ngày giờ" required>
+            </div>
+            </td>
+            <td colspan="2">
+              <div class="form-group">
+                <label for="flight_time">Thời gian bay</label>
+                <input type="number" class="form-control" id="flight_time" name="flight_time" placeholder="Thời gian bay(theo phút)" min="{{ regulations.minimum_flight_time }}" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div class="form-group">
+                <label for="business_class">Số lượng ghế hạng 1</label>
+                <input type="number" class="form-control" id="business_class" name="business_class" placeholder="Số lượng ghế hạng 1" min="0" required>
+              </div>
+            </td>
+            <td colspan="2">
+              <div class="form-group">
+                <label for="economy_class">Số lượng ghế hạng 2</label>
+                <input type="number" class="form-control" id="economy_class" name="economy_class" placeholder="Số lượng ghế hạng 2" min="0" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <table class="table table-bordered">
+              <tr>
+                <th>STT</th>
+                <th>Sân bay trung gian</th>
+                <th>Thời gian dừng</th>
+                <th>Ghi chú</th>
+              </tr>
+              {% for i in range(regulations.maximum_number_of_intermediate_airports) %}
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <div class="form-group">
+                      <input list="transit_airports" class="form-control" id="transit_airport{{ i }}" name="transit_airport{{ i }}" placeholder="Sân bay trung gian" >
+                      <datalist id="transit_airports">
+                        {% for a in airports %}
+                          <option value="{{ a.airport_id }}">
+                        {% endfor %}
+                      </datalist>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="number" class="form-control" id="timing_point{{ i }}" name="timing_point{{ i }}" placeholder="Thời gian dừng" min="{{ regulations.minimum_estimated_time_of_the_stop }}" max="{{ regulations.maximum_estimated_time_of_the_stop }}" >
+                    </div>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="text" class="form-control" id="note{{ i }}" name="note{{ i }}" placeholder="Ghi chú">
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          </tr>
+        </tbody>
+      </table>
+      <input type="submit" value="Lập Lịch Chuyến Bay" class="btn btn-danger">
+    </form>
+  </div>
+{% endblock %}

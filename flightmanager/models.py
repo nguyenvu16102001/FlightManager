@@ -105,9 +105,9 @@ class Schedule(db.Model):
     __tablename__ = 'schedule'
 
     schedule_id = Column(Integer, primary_key=True, autoincrement=True)
-    depature_airport = Column(String(3), ForeignKey('airport.airport_id'), nullable=False)
+    departure_airport = Column(String(3), ForeignKey('airport.airport_id'), nullable=False)
     arrival_airport = Column(String(3), ForeignKey('airport.airport_id'), nullable=False)
-    depature_airports = relationship('Airport', foreign_keys=[depature_airport])
+    departure_airports = relationship('Airport', foreign_keys=[departure_airport])
     arrival_airports = relationship('Airport', foreign_keys=[arrival_airport])
     flights = relationship('Flight', backref='schedule', lazy=True)
 
@@ -118,7 +118,7 @@ class TransitAirport(db.Model):
     transit_airport_id = Column(String(3), ForeignKey('airport.airport_id'), nullable=False, primary_key=True)
     flight_id = Column(String(10), ForeignKey('flight.flight_id'), nullable=False, primary_key=True)
     timing_point = Column(Integer, default=0)
-    arrival_day = Column(DateTime, nullable=False)
+    arrival_day = Column(DateTime)
     note = Column(String(100))
 
 
@@ -143,10 +143,10 @@ class Flight(db.Model):
     departure_day = Column(DateTime, nullable=False)
     arrival_day = Column(DateTime, nullable=False)
     number_of_empty_seats = Column(Integer, default=0)
-    seat_classes = relationship('SeatClass', backref='flight', lazy=True)
-    ticket_prices = relationship('TicketPrice', backref='flight', lazy=True)
+    seat_classes = relationship('SeatClass', backref='flight', lazy=True, cascade="all, delete", passive_deletes=True)
+    ticket_prices = relationship('TicketPrice', backref='flight', lazy=True, cascade="all, delete", passive_deletes=True)
     tickets = relationship('Ticket', backref='flight', lazy=True)
-    assignments = relationship('Assignment', backref='flight', lazy=True)
+    assignments = relationship('Assignment', backref='flight', lazy=True, cascade="all, delete", passive_deletes=True)
     transit_airports = relationship('TransitAirport', backref='flight', lazy=True)
 
 
@@ -174,7 +174,7 @@ class AirplaneType(db.Model):
     seat_number = Column(Integer, default=0)
     cruising_speed = Column(Integer, default=0)
     description = Column(String(200))
-    airplanes = relationship('Airplane', backref='airplanetypes', lazy=True)
+    airplanes = relationship('Airplane', backref='airplane type', lazy=True)
 
 
 class Manufacture(db.Model):
@@ -208,7 +208,7 @@ class Seat(db.Model):
 class SeatClass(db.Model):
     __tablename__ = 'seat_class'
 
-    flight_id = Column(String(10), ForeignKey('flight.flight_id'), primary_key=True, nullable=False)
+    flight_id = Column(String(10), ForeignKey('flight.flight_id', ondelete="CASCADE"), primary_key=True, nullable=False)
     seat_type = Column(Integer, ForeignKey('seat_type.id'), primary_key=True, nullable=False)
     seat_number = Column(Integer, default=0)
 
@@ -225,7 +225,7 @@ class TicketType(db.Model):
 class TicketPrice(db.Model):
     __tablename__ = 'ticket_price'
 
-    flight_id = Column(String(10), ForeignKey('flight.flight_id'), primary_key=True, nullable=False)
+    flight_id = Column(String(10), ForeignKey('flight.flight_id', ondelete="CASCADE"), primary_key=True, nullable=False)
     ticket_type = Column(Integer, ForeignKey('ticket_type.id'), primary_key=True)
     price = Column(DECIMAL(13, 3), default=0)
     quantity = Column(Integer, default=0)
@@ -246,7 +246,7 @@ class Ticket(db.Model):
 class Assignment(db.Model):
     __tablename__ = 'assignment'
 
-    flight_id = Column(String(10), ForeignKey('flight.flight_id'), primary_key=True, nullable=False)
+    flight_id = Column(String(10), ForeignKey('flight.flight_id', ondelete="CASCADE"), primary_key=True, nullable=False)
     employee_id = Column(Integer, ForeignKey('employee.user_id'), primary_key=True, nullable=False)
     duty = Column(String(100), nullable=False)
 
@@ -265,7 +265,7 @@ class Regulations(db.Model):
 
 
 if __name__ == '__main__':
-    # db.create_all()
+    db.create_all()
 
     # user1 = User(last_name='Lê Đức', first_name='Hải', gender='Nam', date_of_birth=datetime.strptime("12/2/1988", "%d/%m/%Y"), identity_card='22324152', address='170/4 đường số 204 Cao Lỗ, quận 8, TP.HCM', email='leduchai1202@gmail.com', phone='9020005505')
     # user2 = User(last_name='Lê Hoàng', first_name='Sơn', gender='Nam', date_of_birth=datetime.strptime("27/03/1987", "%d/%m/%Y"), identity_card='25020255', address='615 KP2, quận Bình Tân, TP.HCM', email='lehoangson2703@gmail.com', phone='902075767')
@@ -341,21 +341,21 @@ if __name__ == '__main__':
     # db.session.add(employee8)
     # db.session.commit()
     #
-    customer1 = Customer(user_id='4')
-    customer2 = Customer(user_id='5', mileage_acquired=1000)
-    customer3 = Customer(user_id='9', mileage_acquired=9000)
-    customer4 = Customer(user_id='10', mileage_acquired=15000)
-    customer5 = Customer(user_id='11')
-    customer6 = Customer(user_id='13', mileage_acquired=8000)
-    customer7 = Customer(user_id='14')
-    db.session.add(customer1)
-    db.session.add(customer2)
-    db.session.add(customer3)
-    db.session.add(customer4)
-    db.session.add(customer5)
-    db.session.add(customer6)
-    db.session.add(customer7)
-    db.session.commit()
+    # customer1 = Customer(user_id='4')
+    # customer2 = Customer(user_id='5', mileage_acquired=1000)
+    # customer3 = Customer(user_id='9', mileage_acquired=9000)
+    # customer4 = Customer(user_id='10', mileage_acquired=15000)
+    # customer5 = Customer(user_id='11')
+    # customer6 = Customer(user_id='13', mileage_acquired=8000)
+    # customer7 = Customer(user_id='14')
+    # db.session.add(customer1)
+    # db.session.add(customer2)
+    # db.session.add(customer3)
+    # db.session.add(customer4)
+    # db.session.add(customer5)
+    # db.session.add(customer6)
+    # db.session.add(customer7)
+    # db.session.commit()
     #
     # airport1 = Airport(airport_id='HAN', airport_name='Sân bay Quốc tế Nội Bài', location='Hà Nội', length='3200')
     # airport2 = Airport(airport_id='HPH', airport_name='Sân bay quốc tế Cát Bi', location='Hải Phòng', length='2402')
@@ -476,24 +476,24 @@ if __name__ == '__main__':
     # db.session.add(airplane22)
     # db.session.commit()
     #
-    # schedule1 = Schedule(depature_airport='HAN', arrival_airport='DAD')
-    # schedule2 = Schedule(depature_airport='HAN', arrival_airport='SGN')
-    # schedule3 = Schedule(depature_airport='HAN', arrival_airport='CXR')
-    # schedule4 = Schedule(depature_airport='HAN', arrival_airport='DLI')
-    # schedule5 = Schedule(depature_airport='SGN', arrival_airport='HAN')
-    # schedule6 = Schedule(depature_airport='SGN', arrival_airport='CXR')
-    # schedule7 = Schedule(depature_airport='SGN', arrival_airport='DLI')
-    # schedule8 = Schedule(depature_airport='SGN', arrival_airport='DAD')
-    # schedule9 = Schedule(depature_airport='DAD', arrival_airport='HAN')
-    # schedule10 = Schedule(depature_airport='DAD', arrival_airport='SGN')
-    # schedule11 = Schedule(depature_airport='DAD', arrival_airport='CXR')
-    # schedule12 = Schedule(depature_airport='DAD', arrival_airport='DLI')
-    # schedule13 = Schedule(depature_airport='CXR', arrival_airport='HAN')
-    # schedule14 = Schedule(depature_airport='CXR', arrival_airport='SGN')
-    # schedule15 = Schedule(depature_airport='CXR', arrival_airport='DAD')
-    # schedule16 = Schedule(depature_airport='DLI', arrival_airport='HAN')
-    # schedule17 = Schedule(depature_airport='DLI', arrival_airport='SGN')
-    # schedule18 = Schedule(depature_airport='DLI', arrival_airport='DAD')
+    # schedule1 = Schedule(departure_airport='HAN', arrival_airport='DAD')
+    # schedule2 = Schedule(departure_airport='HAN', arrival_airport='SGN')
+    # schedule3 = Schedule(departure_airport='HAN', arrival_airport='CXR')
+    # schedule4 = Schedule(departure_airport='HAN', arrival_airport='DLI')
+    # schedule5 = Schedule(departure_airport='SGN', arrival_airport='HAN')
+    # schedule6 = Schedule(departure_airport='SGN', arrival_airport='CXR')
+    # schedule7 = Schedule(departure_airport='SGN', arrival_airport='DLI')
+    # schedule8 = Schedule(departure_airport='SGN', arrival_airport='DAD')
+    # schedule9 = Schedule(departure_airport='DAD', arrival_airport='HAN')
+    # schedule10 = Schedule(departure_airport='DAD', arrival_airport='SGN')
+    # schedule11 = Schedule(departure_airport='DAD', arrival_airport='CXR')
+    # schedule12 = Schedule(departure_airport='DAD', arrival_airport='DLI')
+    # schedule13 = Schedule(departure_airport='CXR', arrival_airport='HAN')
+    # schedule14 = Schedule(departure_airport='CXR', arrival_airport='SGN')
+    # schedule15 = Schedule(departure_airport='CXR', arrival_airport='DAD')
+    # schedule16 = Schedule(departure_airport='DLI', arrival_airport='HAN')
+    # schedule17 = Schedule(departure_airport='DLI', arrival_airport='SGN')
+    # schedule18 = Schedule(departure_airport='DLI', arrival_airport='DAD')
     # db.session.add(schedule1)
     # db.session.add(schedule2)
     # db.session.add(schedule3)

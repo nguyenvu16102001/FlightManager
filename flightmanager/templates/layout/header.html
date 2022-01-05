@@ -30,7 +30,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-success" href="{{ url_for('user_logout') }}">Dang Xuat</a>
+                <a class="nav-link text-success" href="{{ url_for('user_logout', name = 'user_login') }}">Dang Xuat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" href="{{ url_for('flight_status') }}">TÌNH TRẠNG CHUYẾN BAY</a>
             </li>
         {% else %}
             <li class="nav-item">
