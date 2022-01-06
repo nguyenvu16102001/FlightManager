@@ -3,5 +3,256 @@
 {% block title %}Đặt Vé{% endblock %}
 
 {% block content %}
-<h1 class="text-center text-danger">Chào Mừng Đến Trang Đặt Vé</h1>
+<link rel='stylesheet' href="css/style.css" type='text/css' media='all' />
+	<link rel='stylesheet' href="{{ url_for('static', filename='css/shortcodes.css')}}" type='text/css' media='all' />
+	<link rel='stylesheet' href="{{ url_for('static', filename='css/skin.css')}}" type='text/css' media='all' />
+	<style id='themerex-custom-style-inline-css' type='text/css'></style>
+	<link rel='stylesheet' href="{{ url_for('static', filename='css/responsive.css')}}" type='text/css' media='all' />
+    <script src="{{ url_for('static', filename='javascript/img-pic.js')}}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="url_for('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'')"></script>
+    <script src="url_for('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')"></script>
+<div class="header-new">
+        <div class="left">
+            <button type="button" class="button-select">Mua vé ></button>
+            <button type="button" class="button-select">Tình trạng chuyến bay ></button>
+        </div>
+        <div class="right">
+            <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641519831/cnpm/Halong_ensemble__colour_corrected_ewsvep.jpg')" class="pic-news" id="img-news">
+            <p id="name-pic">Vịnh Hạ Long</p>
+        </div>
+    </div>
+    <main role="main">
+        <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
+        <!-- Carousel - Slider -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+            </ol>
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Airline ticket classes</h1>
+            </div>
+        </section>
+        <div class="danhsachsanpham py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641268108/cnpm/download_s0nt9r.jpg')" alt="" />
+                                    <h5>Ghế hạng nhất</h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted text-right">
+                                        <s>12,600,000.00</s>
+                                        <b>12,000,000.00 vnđ</b>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641267902/cnpm/download_ixqwiv.jpg')" alt="" />
+                                    <h5>Ghế hạng thương gia</h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted text-right">
+                                        <s>12,000,000.00</s>
+                                        <b>11,000,000.00 vnđ</b>
+                                        <br>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641268155/cnpm/download_ws42uz.jpg')" alt="" />
+                                    <h5>Ghế hạng phổ thông</h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted text-right">
+                                        <s>11,000,000.00</s>
+                                        <b>10,000,000.00 vnđ</b>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page_content_wrap">
+            <div class="content">
+                <article class="post_item post_item_single page">
+                    <div class="post_content">
+
+                        <section class="section_padding_50">
+                            <div class="container">
+                                <div class="sc_section">
+                                    <div class="sc_content sc_align_center">
+                                        <h2 class="sc_title sc_title_style_1 sc_title_iconed">
+                                        <span class="sc_title_icon sc_title_icon_top  sc_title_icon_small">
+                                            <img src="url_for('images/top_title_bg.png')" alt="" />
+                                        </span>favorite places</h2>
+                                        <h5 class="sc_undertitle sc_undertitle_style_1"></h5>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- <section class="grey_section section_padding_top_30 section_padding_bottom_50">
+                            <div class="container">
+                                <div class="sc_section">
+                                    <div class="sc_section_content">
+                                        <div class="sc_content sc_align_center">
+                                            <div class="columns_wrap sc_columns sc_columns_count_3">
+                                                <div class="column-1_3">
+                                                    <figure class="sc_image sc_image_shape_square">
+                                                        <img src="https://res.cloudinary.com/du3xpvajy/image/upload/v1641266574/cnpm/download_t9dtgy.jpg" alt="" />
+                                                    </figure>
+                                                    <h5 class="sc_title sc_title_style_2">
+                                                    <a href="https://en.wikipedia.org/wiki/Gulfstream_G650/G700/G800">Gulfstream G700</a>
+                                                    </h5>
+                                                </div>
+                                                <div class="column-1_3">
+                                                    <figure class="sc_image  sc_image_shape_square">
+                                                        <img src="https://res.cloudinary.com/du3xpvajy/image/upload/v1641267067/cnpm/download_lyszde.jpg" alt="" />
+                                                    </figure>
+                                                    <h5 class="sc_title sc_title_style_2">
+                                                    <br>
+                                                    <br>
+                                                    <a href="https://vi.wikipedia.org/wiki/T%E1%BA%ADp_tin:Tr%E1%BB%B1c_th%C4%83ng_Airbus_Helicopters_EC130T2_(H130).jpg">Airbus Helicopters EC130T2</a>
+                                                    </h5>
+                                                </div>
+                                                <div class="column-1_3">
+                                                    <figure class="sc_image  sc_image_shape_square">
+                                                        <img src="https://res.cloudinary.com/du3xpvajy/image/upload/v1641267615/cnpm/download_hyzphe.jpg" alt="" />
+                                                    </figure>
+                                                    <h5 class="sc_title sc_title_style_2">
+                                                    <a href="https://en.wikipedia.org/wiki/Airbus_E-Fan">Airbus E-Fan</a>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section> -->
+                        <div style="width:90%; margin:auto;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="thumbnail">
+                                    <a href="http://noibaiairport.vn/" target="_blank">
+                                      <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641523182/cnpm/280px-NoiBaioutside_o0fgcn.jpg')" alt="Lights" style="width:100%; height:250px;">
+                                      <div class="caption">
+                                        <p class="tag-name-place">Sân bay quốc tế Nội Bài (Hà Nội)</p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="thumbnail">
+                                    <a href="https://vietnamairport.vn/tansonnhatairport/" target="_blank">
+                                      <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641523367/cnpm/280px-Tan_Son_Nhat_International_Airport_qqhhpr.jpg')" alt="Nature" style="width:100%; height:250px;">
+                                      <div class="caption">
+                                        <p class="tag-name-place">Sân bay quốc tế Tân Sơn Nhất (Hồ Chí Minh)</p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="thumbnail">
+                                    <a href="https://www.vietnamairport.vn/danangairport/" target="_blank">
+                                      <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641523432/cnpm/280px-S%C3%A2n_bay_Qu%E1%BB%91c_t%E1%BA%BF_%C4%90%C3%A0_N%E1%BA%B5ng_fnppbm.jpg')" alt="Fjords" style="width:100%; height:250px;">
+                                      <div class="caption">
+                                        <p class="tag-name-place">Sân bay quốc tế Đà Nẵng (Đà Nẵng)</p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <div class="thumbnail">
+                                    <a href="https://vietnamairport.vn/camranhairport/" target="_blank">
+                                      <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641523493/cnpm/280px-Nha_ga_T2_irnizv.jpg')" alt="Lights" style="width:100%; height:250px;">
+                                      <div class="caption">
+                                        <p class="tag-name-place">Sân bay quốc tế Cam Ranh (Khánh Hòa)</p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="thumbnail">
+                                    <a href="https://vietnamairport.vn/phuquocairport/" target="_blank">
+                                      <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641523556/cnpm/download_eoqmra.jpg')" alt="Nature" style="width:100%; height:250px;">
+                                      <div class="caption">
+                                        <p class="tag-name-place">Sân bay quốc tế Phú Quốc (Phú Quốc)</p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="thumbnail">
+                                    <a href="https://vietnamairport.vn/vinhairport/" target="_blank">
+                                      <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641523627/cnpm/download_nz0vam.jpg')" alt="Fjords" style="width:100%; height:250px;">
+                                      <div class="caption">
+                                        <p class="tag-name-place">Sân bay quốc tế Vinh (Nghệ An)</p>
+                                      </div>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+        <!-- End block content -->
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">beautiful places in Vietnam</h1>
+            </div>
+        </section>
+        <div class="wrap-left">
+            <div class="left-bottom">
+
+                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641526739/cnpm/Phuquoc_bai_bien_phuquoc_1300x450_gkimbc.jpg')" class="set-pic">
+                <a href="https://vi.wikipedia.org/wiki/Ph%C3%BA_Qu%E1%BB%91c" class="text">Phú Quốc - Hòn ngọc quý</a>
+            </div>
+            <div class="left-bottom">
+                <img class="set-pic" src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641527139/cnpm/HEROBANNER_NinhBinh-1300x450_g6dw20.webp">
+                <a href="https://vi.wikipedia.org/wiki/Ninh_B%C3%ACnh" class="text">Ninh Bình - Cố đô sơn thủy hữu tình</a>
+            </div>
+            <div class="left-bottom">
+                <img class="set-pic" src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641527216/cnpm/Dalat_herobanner_cao_nguyen_lam_vien_1300x450_f8zmhw.jpg')">
+                <a href="url_for('https://vi.wikipedia.org/wiki/%C4%90%C3%A0_L%E1%BA%A1t')" class="text">Đà Lạt - Một Paris thu nhỏ</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- footer -->
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <p class="float-right">
+                <a href="#">Về đầu trang</a>
+            </p>
+        </div>
+    </footer>
+<!--    &lt;!&ndash; end footer &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Optional JavaScript &ndash;&gt;-->
+<!--    &lt;!&ndash; jQuery first, then Popper.js, then Bootstrap JS &ndash;&gt;-->
+<!--    <script src="url_for('vendor/jquery/jquery.min.js"></script>-->
+<!--    <script src="vendor/popperjs/popper.min.js"></script>-->
+<!--    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>-->
+
+<!--    &lt;!&ndash; Custom script - Các file js do mình tự viết &ndash;&gt;-->
+<!--    <script src="assets/js/app.js"></script>-->
+
 {% endblock %}
