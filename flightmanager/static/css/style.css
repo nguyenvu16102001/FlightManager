@@ -321,7 +321,7 @@ div.header-new{
 div.left{
   float:left;
   background-color: aqua;
-  width:25%;
+  width:30%;
   margin-right:10px;
   height:332px;
   padding:10px;
@@ -330,7 +330,7 @@ div.riight{
   float:left;
 }
 img.pic-news{
-  width:70%;
+  width:68%;
   height:332px;
   border-radius:10px;
 }
@@ -376,4 +376,9 @@ img.set-pic{
   font-size:20px;
   box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;  text-decoration: none;
   color:rgb(12, 180, 12);
+}
+p.name-pic{
+    font-size:20px;
+    text-align:right;
+    margin-right:20px;
 }
