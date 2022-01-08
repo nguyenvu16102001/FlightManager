@@ -8,95 +8,79 @@
 	<link rel='stylesheet' href="{{ url_for('static', filename='css/skin.css')}}" type='text/css' media='all' />
 	<style id='themerex-custom-style-inline-css' type='text/css'></style>
 	<link rel='stylesheet' href="{{ url_for('static', filename='css/responsive.css')}}" type='text/css' media='all' />
-    <script src="{{ url_for('static', filename='javascript/img-pic.js')}}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="url_for('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'')"></script>
+    <script src="url_for('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')"></script>
     <script src="url_for('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')"></script>
-<div class="header-new">
-        <div class="left">
-            <button type="button" class="button-select">
-                <a class="nav-link text-success" href="{{ url_for('ticket_sales') }}">Mua vé ></a>
-            </button>
-            <button type="button" class="button-select">
-                                <a class="nav-link text-success" href="{{ url_for('flight_status') }}">Tình trạng chuyến bay ></a>
-
-            </button>
-        </div>
-        <div class="right">
-            <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641519831/cnpm/Halong_ensemble__colour_corrected_ewsvep.jpg')" class="pic-news" id="img-news">
-            <p id="name-pic" class="name-pic">Vịnh Hạ Long</p>
-        </div>
-    </div>
-    <main role="main">
-        <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
-        <!-- Carousel - Slider -->
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-<!--            <ol class="carousel-indicators">-->
-<!--                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
-<!--                <li data-target="#myCarousel" data-slide-to="1" class=""></li>-->
-<!--                <li data-target="#myCarousel" data-slide-to="2" class=""></li>-->
-<!--            </ol>-->
-<!--        <section class="jumbotron text-center">-->
-<!--            <div class="container">-->
-<!--                <h1 class="jumbotron-heading">Airline ticket classes</h1>-->
-<!--            </div>-->
-<!--        </section>-->
-<!--        <div class="danhsachsanpham py-5 bg-light">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-4">-->
-<!--                        <div class="card mb-4 shadow-sm">-->
-<!--                            <div class="card-body">-->
-<!--                                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641268108/cnpm/download_s0nt9r.jpg')" alt="" />-->
-<!--                                    <h5>Ghế hạng nhất</h5>-->
-<!--                                <div class="d-flex justify-content-between align-items-center">-->
-<!--                                    <small class="text-muted text-right">-->
-<!--                                        <s>12,600,000.00</s>-->
-<!--                                        <b>12,000,000.00 vnđ</b>-->
-<!--                                    </small>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="col-md-4">-->
-<!--                        <div class="card mb-4 shadow-sm">-->
-<!--                            <div class="card-body">-->
-<!--                                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641267902/cnpm/download_ixqwiv.jpg')" alt="" />-->
-<!--                                    <h5>Ghế hạng thương gia</h5>-->
-<!--                                <div class="d-flex justify-content-between align-items-center">-->
-<!--                                    <small class="text-muted text-right">-->
-<!--                                        <s>12,000,000.00</s>-->
-<!--                                        <b>11,000,000.00 vnđ</b>-->
-<!--                                        <br>-->
-<!--                                    </small>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="col-md-4">-->
-<!--                        <div class="card mb-4 shadow-sm">-->
-<!--                            <div class="card-body">-->
-<!--                                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641268155/cnpm/download_ws42uz.jpg')" alt="" />-->
-<!--                                    <h5>Ghế hạng phổ thông</h5>-->
-<!--                                <div class="d-flex justify-content-between align-items-center">-->
-<!--                                    <small class="text-muted text-right">-->
-<!--                                        <s>11,000,000.00</s>-->
-<!--                                        <b>10,000,000.00 vnđ</b>-->
-<!--                                    </small>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+<!--<div class="header-new">-->
+<!--        <div class="left">-->
+<!--            <button type="button" class="button-select">-->
+<!--                <a class="nav-link text-success" href="{{ url_for('ticket_sales') }}">Mua vé ></a>-->
+<!--            </button>-->
+<!--            <button type="button" class="button-select">-->
+<!--                                <a class="nav-link text-success" href="{{ url_for('flight_status') }}">Tình trạng chuyến bay ></a>-->
+<!--            </button>-->
+<!--            <div class="right">-->
+<!--                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641519831/cnpm/Halong_ensemble__colour_corrected_ewsvep.jpg')" class="pic-news" id="img-news">-->
+<!--                <p id="name-pic" class="name-pic">Vịnh Hạ Long</p>-->
 <!--            </div>-->
 <!--        </div>-->
+<!--</div>-->
+<table class="wrap-menu-ticket">
+    <tr>
+        <td class="td-wrap-menu">
+            <div id="accordion">
+                <button type="button" class="menu-ticket" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+            </div>
+        </td>
+        <td class="td-wrap-menu">
+            <a href="{{ url_for('flight_status') }}" style="text-decoration: none" class="menu-ticket">Tình trạng chuyến bay</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="wrap-buy-ticket">
+                <div id="demo" class="collapse">
+                        <div class="buy-tcket-opacity">
+                            <table class="in-buy-tcket-opacity">
+                                <tr>
+                                    <td class="padding-buyticket">
+                                        <input type="text" class="form-control" name="flight_id" placeholder="Nơi đi" id="flight_id" required>
+                                    </td>
+                                    <td class="padding-buyticket">
+                                        <input type="text" class="form-control" name="flight_id" placeholder="Nơi đến" id="flight_id" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="padding-buyticket">
+                                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="padding-buyticket"></td>
+                                    <td class="padding-buyticket1">
+                                        <button class="search-plane">Tìm chuyến bay</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div class="wrap-pic">
+    <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641517603/cnpm/download_kdl1kt.jpg') " class="pic-in-wrap" id="img-news">
+</div>
+
+
+
+    <main role="main">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <div class="page_content_wrap">
             <div class="content">
                 <article class="post_item post_item_single page">
                     <div class="post_content">
-
                         <section class="section_padding_50">
                             <div class="container">
                                 <div class="sc_section">
@@ -111,44 +95,6 @@
                                 </div>
                             </div>
                         </section>
-                        <!-- <section class="grey_section section_padding_top_30 section_padding_bottom_50">
-                            <div class="container">
-                                <div class="sc_section">
-                                    <div class="sc_section_content">
-                                        <div class="sc_content sc_align_center">
-                                            <div class="columns_wrap sc_columns sc_columns_count_3">
-                                                <div class="column-1_3">
-                                                    <figure class="sc_image sc_image_shape_square">
-                                                        <img src="https://res.cloudinary.com/du3xpvajy/image/upload/v1641266574/cnpm/download_t9dtgy.jpg" alt="" />
-                                                    </figure>
-                                                    <h5 class="sc_title sc_title_style_2">
-                                                    <a href="https://en.wikipedia.org/wiki/Gulfstream_G650/G700/G800">Gulfstream G700</a>
-                                                    </h5>
-                                                </div>
-                                                <div class="column-1_3">
-                                                    <figure class="sc_image  sc_image_shape_square">
-                                                        <img src="https://res.cloudinary.com/du3xpvajy/image/upload/v1641267067/cnpm/download_lyszde.jpg" alt="" />
-                                                    </figure>
-                                                    <h5 class="sc_title sc_title_style_2">
-                                                    <br>
-                                                    <br>
-                                                    <a href="https://vi.wikipedia.org/wiki/T%E1%BA%ADp_tin:Tr%E1%BB%B1c_th%C4%83ng_Airbus_Helicopters_EC130T2_(H130).jpg">Airbus Helicopters EC130T2</a>
-                                                    </h5>
-                                                </div>
-                                                <div class="column-1_3">
-                                                    <figure class="sc_image  sc_image_shape_square">
-                                                        <img src="https://res.cloudinary.com/du3xpvajy/image/upload/v1641267615/cnpm/download_hyzphe.jpg" alt="" />
-                                                    </figure>
-                                                    <h5 class="sc_title sc_title_style_2">
-                                                    <a href="https://en.wikipedia.org/wiki/Airbus_E-Fan">Airbus E-Fan</a>
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section> -->
                         <div style="width:90%; margin:auto;">
                             <div class="row">
                                 <div class="col-md-4">
@@ -182,7 +128,6 @@
                                   </div>
                                 </div>
                               </div>
-
                             <div class="row">
                                 <div class="col-md-4">
                                   <div class="thumbnail">
@@ -239,6 +184,7 @@
                 <a href="url_for('https://vi.wikipedia.org/wiki/%C4%90%C3%A0_L%E1%BA%A1t')" class="text">Đà Lạt - Một Paris thu nhỏ</a>
             </div>
         </div>
+            <div style="height:200px;"></div>
     </main>
 
     <!-- footer -->
@@ -249,15 +195,22 @@
             </p>
         </div>
     </footer>
-<!--    &lt;!&ndash; end footer &ndash;&gt;-->
-
-<!--    &lt;!&ndash; Optional JavaScript &ndash;&gt;-->
-<!--    &lt;!&ndash; jQuery first, then Popper.js, then Bootstrap JS &ndash;&gt;-->
-<!--    <script src="url_for('vendor/jquery/jquery.min.js"></script>-->
-<!--    <script src="vendor/popperjs/popper.min.js"></script>-->
-<!--    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>-->
-
-<!--    &lt;!&ndash; Custom script - Các file js do mình tự viết &ndash;&gt;-->
-<!--    <script src="assets/js/app.js"></script>-->
-
+<script>
+    var i=1;
+    changeimg=function(){
+        var img=["https://res.cloudinary.com/du3xpvajy/image/upload/v1641519831/cnpm/Halong_ensemble__colour_corrected_ewsvep.jpg",
+                "https://res.cloudinary.com/du3xpvajy/image/upload/v1641520899/cnpm/hoi-an-quang-nam-vntrip-1_bb6jir.jpg",
+                "https://res.cloudinary.com/du3xpvajy/image/upload/v1641520961/cnpm/qb_1-1603825054413_x1wikr.jpg",
+                "https://res.cloudinary.com/du3xpvajy/image/upload/v1641521044/cnpm/gioi-thieu-ve-ho-guom-15_kid67a.jpg",
+                "https://res.cloudinary.com/du3xpvajy/image/upload/v1641521077/cnpm/111111_xvqfrc.jpg",
+                "https://res.cloudinary.com/du3xpvajy/image/upload/v1641521127/cnpm/thanh_pho_bien_vung_tau_293dcb18853648c39e99a09dc7b52f27_na5imk.jpg"]
+                document.getElementById("img-news").src=img[i];
+        i++;
+        if(i==6)
+        {
+            i=0;
+        }
+    }
+    setInterval(changeimg,1000);
+</script>
 {% endblock %}

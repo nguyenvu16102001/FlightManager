@@ -39,14 +39,23 @@ body, html {
   border-radius: 9px;
   border-top: 10px solid #79a6fe;
   border-bottom: 10px solid #8BD17C;
-  width: 800px;
+  width: auto;
+  padding:10px;
   height: auto;
   box-shadow: 1px 1px 108.8px 19.2px rgb(25,31,53);
+}
+label{
+    width:80%;
+}
+div.form-group{
+    color:white;
+    width:105%;
+    margin:auto;
 }
 .box h2 {
   font-family: 'Source Sans Pro', sans-serif;
   color: #5c6bc0; 
-  font-size: 30px;
+  font-size: 50px;
   margin-top:94px;;
 }
 
@@ -64,14 +73,14 @@ body, html {
   margin-bottom: 30px;
 }
 
-.box input[type = "text"],.box input[type = "password"] {
+.box input {
   display: block;
   margin: 20px auto;
   background: #262e49;
   border: 0;
   border-radius: 5px;
   padding: 14px 10px;
-  width: 320px;
+  width:90%;
   outline: none;
   color: #d6d6d6;
       -webkit-transition: all .2s ease-out;
@@ -141,9 +150,7 @@ label span {
   width: 340px;
   height: 49px;
   font-size: 16px;
-  position: absolute;
-  top: 79%;
-  left: 8%;
+
   transition: 0.3s;
   cursor: pointer;
   margin-top:10px;
@@ -167,11 +174,7 @@ label span {
   right: 28px;
 }
 
-.dnthave{
-    position: absolute;
-    top: 92%;
-    left: 24%;
-}
+
 
 [type=checkbox]:checked + span:before {/* <-- style its checked state */
     font-family: FontAwesome;

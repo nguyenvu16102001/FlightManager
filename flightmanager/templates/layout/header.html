@@ -1,3 +1,4 @@
+<link href="{{ url_for('static', filename='css/style-header.css') }}" rel="stylesheet"/>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
   <!-- Brand -->
   <a class="navbar-brand" href="{{url_for('ticket_sales')}}">Air-Flight</a>
@@ -8,7 +9,8 @@
   </button>
 
 <!--   Navbar links-->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <div class="wrap-navbar">
+      <div class="wrap-header" id="collapsibleNavbar">
     <ul class="navbar-nav">
 <!--          <li>-->
 <!--            <a class="nav-link {% if 'category_id' not in request.args %} active {% endif %}" href="/">Trang Chu</a>-->
@@ -20,9 +22,9 @@
 <!--        {% endfor %}-->
         {% if current_user.is_authenticated %}
 
-            <li class="nav-item">
-                <a class="nav-link text-success" href="{{ url_for('flight_status') }}">TÌNH TRẠNG CHUYẾN BAY</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link text-success" href="{{ url_for('flight_status') }}">TÌNH TRẠNG CHUYẾN BAY</a>-->
+<!--            </li>-->
             <li class="nav-item">
                 <a class="nav-link text-danger" href="{{ url_for('home') }}">
                     {% if current_user.avatar %}
@@ -45,5 +47,6 @@
             </li>
         {% endif %}
     </ul>
+  </div>
   </div>
 </nav>

@@ -315,28 +315,19 @@ div.form-group12{
 }
 div.header-new{
   margin:auto;
-  width:90%;
-  padding:10px;
+  width:100%;
 }
 div.left{
   float:left;
   background-color: aqua;
-  width:30%;
+  width:100%;
   margin-right:10px;
   height:332px;
   padding:10px;
 }
-div.riight{
-  float:left;
-}
 img.pic-news{
   width:68%;
   height:332px;
-  border-radius:10px;
-}
-button.button-select{
-  width:100%;
-  margin-bottom:10px;
   border-radius:10px;
 }
 p.tag-name-place{
@@ -381,4 +372,59 @@ p.name-pic{
     font-size:20px;
     text-align:right;
     margin-right:20px;
+}
+div.wrap-pic{
+    width:100%;
+    height:600px;
+    background-attachment:fixed;
+}
+img.pic-in-wrap{
+    width:100%;
+    height:100%;
+}
+.menu-ticket{
+    font-size:20px;
+    padding:5px;
+    color:#6155A6;
+    font-weight:bold;
+	text-decoration: none;
+    background-color:#BCEEE3;
+	border:none;
+}
+a.menu-ticket:hover{
+    color:orange;
+}
+table.wrap-menu-ticket{
+    width:100%;
+    background-color:#BCEEE3;
+}
+.td-wrap-menu:hover{
+    color:white;
+	text-decoration: none;
+}
+.td-wrap-menu{
+    width:49%;
+    text-align:center;
+    height:30px;
+}
+div.wrap-buy-ticket{
+        position: absolute;
+        width:90%;
+        margin-left:5%;
+}
+div.buy-tcket-opacity{
+	opacity:0.95;
+	background-color:#191a1e;
+}
+.in-buy-tcket-opacity{
+	padding:10px;
+	width:90%;
+	margin:auto;
+}
+td.padding-buyticket{
+	padding:10px;
+}
+td.padding-buyticket1{
+	padding:10px;
+	text-align:right;
 }

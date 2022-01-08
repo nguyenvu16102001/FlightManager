@@ -1,0 +1,16 @@
+
+div.wrap-navbar{
+    text-align:right;
+    padding-right:10px;
+    width:90%;
+    backgroound-color:white;
+}
+.navbar-brand1{
+    font-size:30px;
+    color:white;
+    font-family:bookman;
+}
+div.wrap-header{
+    width:50%;
+    margin-right:10px;
+}
