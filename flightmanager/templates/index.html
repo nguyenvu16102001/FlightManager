@@ -25,50 +25,51 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--</div>-->
-<table class="wrap-menu-ticket">
-    <tr>
-        <td class="td-wrap-menu">
-            <div id="accordion">
-                <button type="button" class="menu-ticket" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-            </div>
-        </td>
-        <td class="td-wrap-menu">
-            <a href="{{ url_for('flight_status') }}" style="text-decoration: none" class="menu-ticket">Tình trạng chuyến bay</a>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <div class="wrap-buy-ticket">
-                <div id="demo" class="collapse">
-                        <div class="buy-tcket-opacity">
-                            <table class="in-buy-tcket-opacity">
-                                <tr>
-                                    <td class="padding-buyticket">
-                                        <input type="text" class="form-control" name="flight_id" placeholder="Nơi đi" id="flight_id" required>
-                                    </td>
-                                    <td class="padding-buyticket">
-                                        <input type="text" class="form-control" name="flight_id" placeholder="Nơi đến" id="flight_id" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="padding-buyticket">
-                                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="padding-buyticket"></td>
-                                    <td class="padding-buyticket1">
-                                        <button class="search-plane">Tìm chuyến bay</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+<div class="wrap-all-menu">
+    <table class="wrap-menu-ticket">
+        <tr>
+            <td class="td-wrap-menu">
+                <div id="accordion">
+                    <button type="button" class="menu-ticket" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
                 </div>
-            </div>
-        </td>
-    </tr>
-</table>
-
+            </td>
+            <td class="td-wrap-menu">
+                <a href="{{ url_for('flight_status') }}" style="text-decoration: none" class="menu-ticket">Tình trạng chuyến bay</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="wrap-buy-ticket">
+                    <div id="demo" class="collapse">
+                            <div class="buy-tcket-opacity">
+                                <table class="in-buy-tcket-opacity">
+                                    <tr>
+                                        <td class="padding-buyticket">
+                                            <input type="text" class="form-control" name="flight_id" placeholder="Nơi đi" id="flight_id" required>
+                                        </td>
+                                        <td class="padding-buyticket">
+                                            <input type="text" class="form-control" name="flight_id" placeholder="Nơi đến" id="flight_id" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="padding-buyticket">
+                                            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="padding-buyticket"></td>
+                                        <td class="padding-buyticket1">
+                                            <button class="search-plane">Tìm chuyến bay</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 <div class="wrap-pic">
     <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641517603/cnpm/download_kdl1kt.jpg') " class="pic-in-wrap" id="img-news">
 </div>
