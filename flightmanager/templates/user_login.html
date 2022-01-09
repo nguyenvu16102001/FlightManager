@@ -15,7 +15,9 @@
 <!--<form method="post">-->
     <link href="{{ url_for('static', filename='css/user-login.css') }}" rel="stylesheet"/>
     <script src="{{ url_for('static', filename='javascript/user-login.js')}}"></script>
-<div class="animated bounceInDown">
+
+<div class="wrap-on-footer">
+    <div class="animated bounceInDown">
   <div class="container1">
     <span class="error animated tada" id="msg"></span>
     <form name="form1" class="box" onsubmit="return checkStuff()" method="post">
@@ -53,5 +55,5 @@
 <!--    <input type="submit" value="Dang Nhap" class="btn btn-danger">-->
 <!--    <br><br>-->
 <!--    </div>-->
-</form>
+</div>
 {% endblock %}
