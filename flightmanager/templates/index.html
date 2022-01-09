@@ -34,24 +34,84 @@
         <tr>
             <td colspan="2">
                 <div id="demo" class="collapse" data-parent="#accordion">
-                    <table>
-                        <tr>
-                            <td class="td-wrap-menu">
-                                <input type="text"  placeholder="Từ" id="flight-from" class="data-search">
-                            </td>
-                            <td class="td-wrap-menu">
-                                <input type="text"  placeholder="Đến" id="flight-to" class="data-search">
-                            </td>
-                            <td class="td-wrap-menu">
-                                <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="td-wrap-menu">
-                                <input type="submit" value="Tìm kiếm" class="search-button">
-                            </td>
-                        </tr>
-                    </table>
+                    <div id="accordion12">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <button data-toggle="collapse" data-target="#demoa" class="button-menu" style="font-size:18px;">Một chiều</button>
+                                </td>
+                                <td>
+                                    <button data-toggle="collapse" data-target="#demob" class="button-menu" style="font-size:18px;">Khứ hồi</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <hr style="height:10px; background-color:white;">
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:95%; margin:10px; margin:center;">
+                            <tr>
+                                <td>
+                                    <div id="demoa" class="collapse" data-parent="#accordion12">
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td style="font-size:15px; color:white;">Từ</td>
+                                                <td style="font-size:15px; color:white;">Đến</td>
+                                                <td style="font-size:15px; color:white;">Ngày đi</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text"  placeholder="Sân bay đi" id="flight-from" class="data-search">
+                                                </td>
+                                                <td>
+                                                    <input type="text"  placeholder="Sân bay đến" id="flight-from" class="data-search">
+                                                </td>
+                                                <td>
+                                                    <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <input type="submit" value="Tìm kiếm" class="search-button" style="font-size:15px;">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div id="demob" class="collapse" data-parent="#accordion12">
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td style="font-size:15px; color:white;">Từ</td>
+                                                <td style="font-size:15px; color:white;">Đến</td>
+                                                <td style="font-size:15px; color:white;">Ngày đi</td>
+                                                <td style="font-size:15px; color:white;">Ngày về</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text"  placeholder="Sân bay đi" id="flight-from" class="data-search">
+                                                </td>
+                                                <td>
+                                                    <input type="text"  placeholder="Sân bay đến" id="flight-from" class="data-search">
+                                                </td>
+                                                <td>
+                                                    <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày đi" required class="data-search">
+                                                </td>
+                                                <td>
+                                                    <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày đi" required class="data-search">
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <input type="submit" value="Tìm kiếm" class="search-button" style="font-size:15px;">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <div id="demo1" class="collapse" data-parent="#accordion">
                     <div id="accordion1">
