@@ -4,66 +4,115 @@
 
 {% block content %}
 <link rel='stylesheet' href="css/style.css" type='text/css' media='all' />
-	<link rel='stylesheet' href="{{ url_for('static', filename='css/shortcodes.css')}}" type='text/css' media='all' />
-	<link rel='stylesheet' href="{{ url_for('static', filename='css/skin.css')}}" type='text/css' media='all' />
+<!--	<link rel='stylesheet' href="{{ url_for('static', filename='css/shortcodes.css')}}" type='text/css' media='all' />-->
+<!--	<link rel='stylesheet' href="{{ url_for('static', filename='css/skin.css')}}" type='text/css' media='all' />-->
 	<style id='themerex-custom-style-inline-css' type='text/css'></style>
 	<link rel='stylesheet' href="{{ url_for('static', filename='css/responsive.css')}}" type='text/css' media='all' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="url_for('https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')"></script>
     <script src="url_for('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js')"></script>
-<!--<div class="header-new">-->
-<!--        <div class="left">-->
-<!--            <button type="button" class="button-select">-->
-<!--                <a class="nav-link text-success" href="{{ url_for('ticket_sales') }}">Mua vé ></a>-->
-<!--            </button>-->
-<!--            <button type="button" class="button-select">-->
-<!--                                <a class="nav-link text-success" href="{{ url_for('flight_status') }}">Tình trạng chuyến bay ></a>-->
-<!--            </button>-->
-<!--            <div class="right">-->
-<!--                <img src="url_for('https://res.cloudinary.com/du3xpvajy/image/upload/v1641519831/cnpm/Halong_ensemble__colour_corrected_ewsvep.jpg')" class="pic-news" id="img-news">-->
-<!--                <p id="name-pic" class="name-pic">Vịnh Hạ Long</p>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--</div>-->
-<div class="wrap-all-menu">
-    <table class="wrap-menu-ticket">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="url_for('https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js') "></script>
+    <script src="url_for('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js')"></script>
+    <script src="url_for('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')"></script>
+<div id="accordion">
+    <table class="wrap-menu">
         <tr>
-            <td class="td-wrap-menu">
-                <div id="accordion">
-                    <button type="button" class="menu-ticket" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-                </div>
+            <td  class="td-wrap-menu">
+                <button data-toggle="collapse" data-target="#demo" class="button-menu">Mua vé</button>
             </td>
-            <td class="td-wrap-menu">
-                <a href="{{ url_for('flight_status') }}" style="text-decoration: none" class="menu-ticket">Tình trạng chuyến bay</a>
+            <td  class="td-wrap-menu">
+                <button data-toggle="collapse" data-target="#demo1" class="button-menu">Tình trạng chuyến bay</button>
             </td>
+            <tr >
+                <td colspan="3">
+                    <hr style="height:5px; background-color:#F6EFC8;"
+                </td>
+            </tr>
         </tr>
         <tr>
             <td colspan="2">
-                <div class="wrap-buy-ticket">
-                    <div id="demo" class="collapse">
-                            <div class="buy-tcket-opacity">
-                                <table class="in-buy-tcket-opacity">
-                                    <tr>
-                                        <td class="padding-buyticket">
-                                            <input type="text" class="form-control" name="flight_id" placeholder="Nơi đi" id="flight_id" required>
-                                        </td>
-                                        <td class="padding-buyticket">
-                                            <input type="text" class="form-control" name="flight_id" placeholder="Nơi đến" id="flight_id" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="padding-buyticket">
-                                            <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="padding-buyticket"></td>
-                                        <td class="padding-buyticket1">
-                                            <button class="search-plane">Tìm chuyến bay</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                <div id="demo" class="collapse" data-parent="#accordion">
+                    <table>
+                        <tr>
+                            <td class="td-wrap-menu">
+                                <input type="text"  placeholder="Từ" id="flight-from" class="data-search">
+                            </td>
+                            <td class="td-wrap-menu">
+                                <input type="text"  placeholder="Đến" id="flight-to" class="data-search">
+                            </td>
+                            <td class="td-wrap-menu">
+                                <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="td-wrap-menu">
+                                <input type="submit" value="Tìm kiếm" class="search-button">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="demo1" class="collapse" data-parent="#accordion">
+                    <div id="accordion1">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <button data-toggle="collapse" data-target="#demoa" class="button-menu" style="font-size:18px;">Sân bay</button>
+                                </td>
+                                <td>
+                                    <button data-toggle="collapse" data-target="#demob" class="button-menu" style="font-size:18px;">Số hiệu chuyến bay</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <hr style="height:10px; background-color:white;">
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:95%; margin:10px; margin:center;">
+                            <tr>
+                                <td>
+                                    <div id="demoa" class="collapse" data-parent="#accordion1">
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td>
+                                                    <input type="text"  placeholder="Sân bay đi" id="flight-from" class="data-search">
+                                                </td>
+                                                <td>
+                                                    <input type="text"  placeholder="Sân bay đến" id="flight-from" class="data-search">
+                                                </td>
+                                                <td>
+                                                    <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <input type="submit" value="Tìm kiếm" class="search-button" style="font-size:15px;">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div id="demob" class="collapse" data-parent="#accordion1">
+                                        <table style="width:100%;">
+                                            <tr>
+                                                <td>
+                                                    <input type="text"  placeholder="Số hiệu chuyến bay" id="flight-from" class="data-search" style=" margin:5px;">
+                                                </td>
+                                                <td>
+                                                    <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search" style="margin:5px;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <input type="submit" value="Tìm kiếm" class="search-button" style="font-size:15px;">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </td>

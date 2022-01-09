@@ -382,49 +382,38 @@ img.pic-in-wrap{
     width:100%;
     height:100%;
 }
-.menu-ticket{
-    font-size:20px;
-    padding:5px;
-    color:#6155A6;
-    font-weight:bold;
-	text-decoration: none;
-    background-color:#BCEEE3;
-	border:none;
-}
-a.menu-ticket:hover{
-    color:orange;
-}
-table.wrap-menu-ticket{
+table.wrap-menu{
     width:100%;
-    background-color:#BCEEE3;
-}
-.td-wrap-menu:hover{
-    color:white;
-	text-decoration: none;
+    background-color:#004df3;
+    text-align:center;
 }
 .td-wrap-menu{
     width:49%;
     text-align:center;
-    height:30px;
+	font-size:20px;
+	padding:5px;
 }
-div.wrap-buy-ticket{
-        position: absolute;
-        width:90%;
-        margin-left:5%;
-}
-div.buy-tcket-opacity{
-	opacity:0.95;
-	background-color:#191a1e;
-}
-.in-buy-tcket-opacity{
+input.data-search{
+	width:100%;
+	font-size:14px;
 	padding:10px;
-	width:90%;
-	margin:auto;
+	line-height: 18px;
+	padding:5px;
+	border-radius:10px;
 }
-td.padding-buyticket{
-	padding:10px;
+button.button-menu{
+	border:none;
+	background-color: #004df3;
+	color:white;
 }
-td.padding-buyticket1{
-	padding:10px;
-	text-align:right;
+button.button-menu:hover{
+	color:red;
+	font-size:25px;
+}
+input.search-button{
+	border:none;
+	border-radius:10px;
+	background-color: #CBEBCE;
+	height:35px;
+	color:#008080;
 }
