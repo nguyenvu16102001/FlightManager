@@ -51,7 +51,6 @@ div.form-group{
     color:white;
     width:105%;
     margin:auto;
-    text-align:center;
 }
 .box h2 {
   font-family: 'Source Sans Pro', sans-serif;
@@ -151,6 +150,7 @@ label span {
   width: 340px;
   height: 49px;
   font-size: 16px;
+
   transition: 0.3s;
   cursor: pointer;
   margin-top:10px;
@@ -226,15 +226,7 @@ label span {
     font-size: 14px;
     text-align: center;
 }
+
 .footer .fa {
   color: #7f5feb;;
-}
-div.wrap-on-footer{
-  height:400px;
-}
-div.wrap-on-footer1{
-  height:1070px;
-}
-.form-control{
-    width:80%;
 }
