@@ -1,0 +1,81 @@
+div.right{
+  text-align:right;
+  width:100%;
+  padding:10px;
+  height:80px;
+}
+div.button-class{
+  border:none;
+  text-align:center;
+  width:18%;
+  background-color: #0082A4;
+  font-size:20px;
+  font-weight: 600;
+  padding:5px;
+  color:white;
+  border-radius:10px;
+  margin:10px;
+  text-decoration:none;
+  float:right;
+}
+div.class-select{
+  background-color: white;
+  border-radius:10px;
+  padding:10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  margin:10px;
+  height:130px;;
+}
+div.wrap-summary{
+  padding:10px;
+  width:50%;
+  float:left;
+}
+time.timeline{
+  font-size:21px;
+  font-weight: 600;
+  color: #168FB0;
+}
+.airport{
+  color: #168FB0;
+  font-size:20px;
+}
+td{
+  text-align:center;
+}
+button.button-select{
+  height:110px;
+  position: relative;
+  top:0px;
+  left:70%;
+  width:110%;
+  height:110px;
+  border:none;
+  border-radius:10px;
+  background-color: white;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+button.button-select1{
+  height:110px;
+  position: relative;
+  top:-110px;
+  left:190%;
+  width:110%;
+  border:none;
+  border-radius:10px;
+  background-color: white;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+button.button-none{
+  border: none;
+  background-color: white;
+}
+div.detail{
+  background-color: white;
+  border-radius:10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  margin:10px;
+  padding:10px;
+  width:20%;
+}
