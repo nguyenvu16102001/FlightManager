@@ -8,7 +8,8 @@ from flightmanager.admin import *
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    airports = utils.get_list_airport()
+    return render_template('index.html', airports=airports)
 
 
 @app.route('/ticket-sales')
@@ -122,6 +123,19 @@ def employee_login():
     return render_template('ticket_sales.html', err_msg=err_msg)
 
 
+@app.route('/flight-selection')
+def flight_selection():
+    departure_airport = request.args.get("departure_airport")
+    arrival_airport = request.args.get("arrival_airport")
+    departure_day = request.args.get("departure_day")
+    flight = None
+    if departure_airport and arrival_airport and departure_day:
+        flight = utils.get_flight_status(departure_airport=departure_airport, arrival_airport=arrival_airport,
+                                         departure_day=departure_day)
+
+    return render_template('flight_selection.html', flight=flight)
+
+
 @app.route('/flight-status')
 def flight_status():
     airports = utils.get_list_airport()
@@ -136,42 +150,41 @@ def flight_status():
     return render_template('flight_status.html', airports=airports)
 
 
-@app.route('/flight-scheduling', methods=['get', 'post'])
+@app.route('/flight-scheduling')
 @login_required
 def flight_scheduling():
     err_msg = ''
     airplanes = utils.get_list_airplane()
     airports = utils.get_list_airport()
     regulations = utils.get_regulations_by_id(regulations_id=1)
-    if request.method.__eq__('POST'):
-        flight_id = request.form.get('flight_id')
-        airplane_id = request.form.get('airplane_id')
-        departure_airport = request.form.get('departure_airport')
-        arrival_airport = request.form.get('arrival_airport')
-        departure_day = request.form.get('departure_day')
-        flight_time = request.form.get('flight_time')
-        business_class = request.form.get('business_class')
-        economy_class = request.form.get('economy_class')
+    flight_id = request.args.get('flight_id')
+    if flight_id:
+        airplane_id = request.args.get('airplane_id')
+        departure_airport = request.args.get('departure_airport')
+        arrival_airport = request.args.get('arrival_airport')
+        departure_day = request.args.get('departure_day')
+        flight_time = request.args.get('flight_time')
+        business_class = request.args.get('business_class')
+        economy_class = request.args.get('economy_class')
         transit_airports = []
         timing_points = []
         notes = []
         for i in range(regulations.maximum_number_of_intermediate_airports):
-            if request.form.get('transit_airport' + str(i)):
-                transit_airports.append(request.form.get('transit_airport' + str(i)))
-                timing_points.append(request.form.get('timing_point' + str(i)))
-                notes.append(request.form.get('note' + str(i)))
+            if request.args.get('transit_airport' + str(i)):
+                transit_airports.append(request.args.get('transit_airport' + str(i)))
+                timing_points.append(request.args.get('timing_point' + str(i)))
+                notes.append(request.args.get('note' + str(i)))
 
         try:
-            if flight_id:
-                utils.flight_scheduling(flight_id=flight_id, airplane_id=airplane_id, departure_airport=departure_airport,
-                                        arrival_airport=arrival_airport, departure_day=departure_day,
-                                        flight_time=flight_time, business_class=business_class, economy_class=economy_class,
-                                        transit_airports=transit_airports, timing_points=timing_points, notes=notes)
-                flight = utils.get_flight_by_id(flight_id=flight_id)
-                if flight:
-                    err_msg = 'Thêm thành công'
-                else:
-                    err_msg = 'Thêm thất bại'
+            utils.flight_scheduling(flight_id=flight_id, airplane_id=airplane_id, departure_airport=departure_airport,
+                                    arrival_airport=arrival_airport, departure_day=departure_day,
+                                    flight_time=flight_time, business_class=business_class, economy_class=economy_class,
+                                    transit_airports=transit_airports, timing_points=timing_points, notes=notes)
+            flight = utils.get_flight_by_id(flight_id=flight_id)
+            if flight:
+                err_msg = 'Thêm thành công'
+            else:
+                err_msg = 'Thêm thất bại'
         except Exception as ex:
             err_msg = 'Hệ thống đang có lỗi:' + str(ex)
 

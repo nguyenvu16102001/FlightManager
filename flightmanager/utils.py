@@ -114,7 +114,7 @@ def flight_scheduling(flight_id, airplane_id, departure_airport, arrival_airport
     add_flight(flight_id=flight_id, airplane_id=airplane_id, schedule_id=schedule.schedule_id,
                flight_time=flight_time, departure_day=departure_day,
                arrival_day=datetime.strptime(departure_day, "%Y-%m-%dT%H:%M") + timedelta(minutes=int(flight_time)),
-               number_of_empty_seats=business_class + economy_class)
+               number_of_empty_seats=int(business_class) + int(economy_class))
 
     add_seat_class(flight_id=flight_id, business_class=business_class, economy_class=economy_class)
 
@@ -129,16 +129,24 @@ def get_flight_by_id(flight_id):
 
 
 def get_flight_status(departure_airport, arrival_airport, departure_day):
-    departure_day = datetime.strptime(departure_day, "%Y-%m,-%d")
-    status = db.session.query(Flight.flight_id, Flight.departure_day, Flight.arrival_day, Airplane.airplane_type,
-                              Airplane.airline_id, Schedule.departure_airport, Schedule.arrival_airport)\
-                        .join(Airplane, Airplane.airline_id.__eq__(Flight.airplane_id))\
-                        .join(Schedule, Schedule.schedule_id.__eq__(Flight.schedule_id))
+    departure_day = datetime.strptime(departure_day, "%Y-%m-%dT%H:%M")
+    status = db.session.query(Flight.flight_id, Flight.airplane_id, Flight.flight_time, Flight.departure_day,
+                              Flight.arrival_day, Airplane.airplane_type, Airplane.airline_id,
+                              Schedule.departure_airport, Schedule.arrival_airport) \
+                .join(Airplane, Airplane.airplane_id.__eq__(Flight.airplane_id))\
+                .join(Schedule, Schedule.schedule_id.__eq__(Flight.schedule_id))
 
-    if departure_airport and arrival_airport and departure_day:
-        status = status.filter(Schedule.departure_airport.__eq__(departure_airport),
-                               Schedule.arrival_airport.__eq__(arrival_airport),
-                               extract('day', Flight.departure_day) == departure_day.day,
-                               extract('month', Flight.departure_day) == departure_day.month,
-                               extract('year', Flight.departure_day) == departure_day.year)
+    status = status.filter(Schedule.departure_airport.__eq__(departure_airport),
+                           Schedule.arrival_airport.__eq__(arrival_airport),
+                           extract('day', Flight.departure_day) == departure_day.day,
+                           extract('month', Flight.departure_day) == departure_day.month,
+                           extract('year', Flight.departure_day) == departure_day.year)
     return status.all()
+
+
+# def get_flight_selection(departure_airport, arrival_airport, departure_day, arrival_day=None):
+#     flight = db.session.query(Flight.flight_id, Flight.flight_time, Flight.departure_day, Flight.arrival_day,
+#                               Airplane.airplane_type, Airplane.airline_id, Schedule.departure_airport,
+#                               Schedule.arrival_airport)\
+#                         .join(Airplane, Airplane.airline_id.__eq__(Flight.airplane_id))\
+#                         .join(Schedule, Schedule.schedule_id.__eq__(Flight.schedule_id))

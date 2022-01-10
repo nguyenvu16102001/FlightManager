@@ -13,7 +13,7 @@
       </div>
   {% endif %}
   <div class="container">
-    <form method="post" action="{{ url_for('flight_scheduling') }}">
+    <form action="{{ url_for('flight_scheduling') }}">
       <table class="table table-bordered">
         <thead>
           <tr >
@@ -34,7 +34,7 @@
                 <input list="airplanes" class="form-control" name="airplane_id" placeholder="Mã máy bay" id="airplane_id" required>
                 <datalist id="airplanes">
                   {% for a in airplanes %}
-                  <option value="{{ a.airplane_id }}">
+                  <option value="{{ a.airplane_id }}">{{ a.airline_id }}</option>
                   {% endfor %}
                 </datalist>
               </div>
@@ -47,7 +47,7 @@
                 <input list="departure_airports" class="form-control" name="departure_airport" placeholder="Sân bay đi" id="departure_airport" required>
                 <datalist id="departure_airports">
                   {% for a in airports %}
-                    <option value="{{ a.airport_id }}">
+                  <option value="{{ a.airport_id }}">{{ a.location }}</option>
                   {% endfor %}
                 </datalist>
               </div>
@@ -58,7 +58,7 @@
                 <input list="arrival_airports" class="form-control" name="arrival_airport" placeholder="Sân bay đến" id="arrival_airport" required>
                 <datalist id="arrival_airports">
                   {% for a in airports %}
-                    <option value="{{ a.airport_id }}">
+                  <option value="{{ a.airport_id }}">{{ a.location }}</option>
                   {% endfor %}
                 </datalist>
               </div>

@@ -1,0 +1,21 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Đặt Vé{% endblock %}
+
+{% block content %}
+{% if flight %}
+    {% for f in flight %}
+        <h1>{{ f.flight_id }}</h1>
+        <h1>{{ f.departure_day }}</h1>
+        <h1>{{ f.arrival_day }}</h1>
+        <h1>{{ f.departure_airport }}</h1>
+        <h1>{{ f.arrival_airport }}</h1>
+        <h1>{{ f.airplane_id }}</h1>
+        <h1>{{ f.flight_time }}</h1>
+        <h1>{{ f.airplane_type }}</h1>
+        <h1>{{ f.airline_id }}</h1>
+    {% endfor %}
+{% else%}
+    <h1 class="text-danger text-center">Chuyến bay không tồn tại</h1>
+{% endif %}
+{% endblock %}

@@ -27,7 +27,7 @@
             </td>
             <tr >
                 <td colspan="3">
-                    <hr style="height:5px; background-color:#F6EFC8;"
+                    <hr style="height:5px; background-color:#F6EFC8;">
                 </td>
             </tr>
         </tr>
@@ -54,29 +54,41 @@
                             <tr>
                                 <td>
                                     <div id="demoaa" class="collapse" data-parent="#accordion12">
-                                        <table style="width:100%;">
-                                            <tr>
-                                                <td style="font-size:15px; color:white;">Từ</td>
-                                                <td style="font-size:15px; color:white;">Đến</td>
-                                                <td style="font-size:15px; color:white;">Ngày đi</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text"  placeholder="Sân bay đi" id="flight-from" class="data-search">
-                                                </td>
-                                                <td>
-                                                    <input type="text"  placeholder="Sân bay đến" id="flight-from" class="data-search">
-                                                </td>
-                                                <td>
-                                                    <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">
-                                                    <input type="submit" value="Tìm kiếm" class="search-button" style="font-size:15px;">
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        <form action="{{ url_for('flight_selection') }}">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td style="font-size:15px; color:white;">Từ</td>
+                                                    <td style="font-size:15px; color:white;">Đến</td>
+                                                    <td style="font-size:15px; color:white;">Ngày đi</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input list="departure_airports" name="departure_airport" placeholder="Sân bay đi" id="departure_airport" required class="data-search">
+                                                        <datalist id="departure_airports">
+                                                          {% for a in airports %}
+                                                          <option value="{{ a.airport_id }}">{{ a.location }}</option>
+                                                          {% endfor %}
+                                                        </datalist>
+                                                    </td>
+                                                    <td>
+                                                        <input list="arrival_airports" name="arrival_airport" placeholder="Sân bay đến" id="arrival_airport" required class="data-search">
+                                                        <datalist id="arrival_airports">
+                                                          {% for a in airports %}
+                                                          <option value="{{ a.airport_id }}">{{ a.location }}</option>
+                                                          {% endfor %}
+                                                        </datalist>
+                                                    </td>
+                                                    <td>
+                                                        <input type="datetime-local" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <input type="submit" value="Tìm kiếm" class="search-button" style="font-size:15px;">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
                                     </div>
                                     <div id="demoab" class="collapse" data-parent="#accordion12">
                                         <table style="width:100%;">
