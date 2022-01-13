@@ -4,6 +4,7 @@ from flask import render_template, request, redirect, url_for
 from flightmanager.models import UserRole
 from flask_login import login_user, login_required, logout_user
 from flightmanager.admin import *
+import uuid
 
 
 @app.route('/')
@@ -57,8 +58,6 @@ def user_register():
 @app.route('/user-login', methods=['get', 'post'])
 def user_login():
     err_msg = ''
-    username = ''
-    password = ''
     if request.method.__eq__('POST'):
         username = request.form.get('username')
         password = request.form.get('password')
@@ -125,6 +124,8 @@ def employee_login():
 
 @app.route('/flight-selection')
 def flight_selection():
+    airports = utils.get_list_airport()
+    ticket_prices = utils.get_list_ticket_price()
     departure_airport = request.args.get("departure_airport")
     arrival_airport = request.args.get("arrival_airport")
     departure_day = request.args.get("departure_day")
@@ -133,7 +134,68 @@ def flight_selection():
         flight = utils.get_flight_status(departure_airport=departure_airport, arrival_airport=arrival_airport,
                                          departure_day=departure_day)
 
-    return render_template('flight_selection.html', flight=flight)
+    return render_template('flight_selection.html', flight=flight, airports=airports, ticket_prices=ticket_prices)
+
+
+flight_id = None
+ticket_type = None
+
+
+@app.route('/passengers', methods=['get', 'post'])
+def passenger():
+    err_msg = ''
+    user_id = None
+    global flight_id
+    global ticket_type
+    if request.args.get('flight_id'):
+        flight_id = request.args.get('flight_id')
+    if request.args.get('ticket_type'):
+        ticket_type = request.args.get('ticket_type')
+    if request.method.__eq__('POST'):
+        last_name = request.form.get('last_name')
+        first_name = request.form.get('first_name')
+        gender = request.form.get('gender')
+        date_of_birth = request.form.get('date_of_birth')
+        identity_card = request.form.get('identity_card')
+        nationality = request.form.get('nationality')
+        phone = request.form.get('phone')
+        email = request.form.get('email')
+        try:
+            user = utils.get_user(identity_card)
+            if user:
+                user_id = user.user_id
+                return redirect(url_for('seat_selection', user_id=user_id))
+            else:
+                utils.add_user(last_name=last_name, first_name=first_name, gender=gender, date_of_birth=date_of_birth,
+                               identity_card=identity_card, nationality=nationality, address='', avatar='', phone=phone,
+                               email=email)
+                user = utils.get_user(identity_card=identity_card)
+                if user:
+                    user_id = user.user_id
+        except Exception as ex:
+            err_msg = 'Hệ thống đang có lỗi:' + str(ex)
+
+    return render_template('passengers.html', err_msg=err_msg)
+
+
+@app.route('/seat_selection')
+def seat_selection():
+    user_id = request.args.get('user_id')
+    seats = utils.get_seats(flight_id=flight_id, seat_type=ticket_type)
+    return render_template('seat_selection.html', user_id=user_id, seats=seats)
+
+
+@app.route('/payment')
+def payment():
+    bill_id = str(uuid.uuid4())[0:6]
+    while bill_id:
+        bill_id = str(uuid.uuid4())[0:6]
+    user_id = request.args.get('user_id')
+    seat_id = request.args.get('seat_id')
+    price = utils.get_ticket_price(flight_id=flight_id, ticket_type=ticket_type)
+    user = utils.get_user_by_id(user_id=user_id)
+    flight = utils.get_flight_status_by_flight_id(flight_id=flight_id)
+    return render_template('payment.html', price=price, user=user, flight=flight)
 
 
 @app.route('/flight-status')
@@ -176,17 +238,20 @@ def flight_scheduling():
                 notes.append(request.args.get('note' + str(i)))
 
         try:
-            utils.flight_scheduling(flight_id=flight_id, airplane_id=airplane_id, departure_airport=departure_airport,
-                                    arrival_airport=arrival_airport, departure_day=departure_day,
-                                    flight_time=flight_time, business_class=business_class, economy_class=economy_class,
-                                    transit_airports=transit_airports, timing_points=timing_points, notes=notes)
-            flight = utils.get_flight_by_id(flight_id=flight_id)
-            if flight:
+            flight = utils.flight_scheduling(flight_id=flight_id, airplane_id=airplane_id, departure_airport=departure_airport,
+                                             arrival_airport=arrival_airport, departure_day=departure_day,
+                                             flight_time=flight_time, business_class=business_class, economy_class=economy_class,
+                                             transit_airports=transit_airports, timing_points=timing_points, notes=notes)
+            if flight == 1:
                 err_msg = 'Thêm thành công'
-            else:
+            elif flight == -1:
                 err_msg = 'Thêm thất bại'
-        except Exception as ex:
-            err_msg = 'Hệ thống đang có lỗi:' + str(ex)
+            elif flight == 2:
+                err_msg = 'Tuyến bay không tồn tại'
+            elif flight == 3:
+                err_msg = 'Mã chuyến bay đã tồn tại'
+        except Exception:
+            err_msg = 'Thêm thất bại'
 
     return render_template('flight_scheduling.html', airplanes=airplanes, airports=airports,
                            regulations=regulations, err_msg=err_msg)

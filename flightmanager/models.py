@@ -51,7 +51,7 @@ class User(db.Model):
     identity_card = Column(String(15), nullable=False, unique=True)
     nationality = Column(String(50), default='Việt Nam')
     avatar = Column(String(150))
-    address = Column(String(250), nullable=False)
+    address = Column(String(250))
     email = Column(String(50), nullable=False)
     phone = Column(String(15), nullable=False)
     notes = Column(String(200))

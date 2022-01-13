@@ -18,13 +18,10 @@
   <div class="container2">
     <span class="error animated tada" id="msg"></span>
     <form name="form1" class="box" onsubmit="return checkStuff()" method="post" action="{{ url_for('user_register') }}" enctype="multipart/form-data">
-<!--    <form method="post" action="{{ url_for('user_register') }}" enctype="multipart/form-data">-->
       <h2>Regis<span>ter</span></h2>
         <br>
       <h5>Sign up for your account.</h5>
-<!--        <input type="text" class="form-control" id="username" name="username" required>-->
         <i class="typcn typcn-eye" id="eye"></i>
-<!--        <input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">-->
         <table>
             <tr>
                 <td colspan="5">
@@ -52,8 +49,8 @@
                         <label for="gender">Giới tính</label>
                         <input list="genders" class="form-control" id="gender" name="gender" required>
                         <datalist id="genders">
-                            <option value="Male">
-                            <option value="Female">
+                            <option value="Nam">
+                            <option value="Nữ">
                         </datalist>
                     </div>
                 </td>

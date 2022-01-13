@@ -1,0 +1,75 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Đặt Vé{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ flight_id }}</h1>
+    <h1>{{ ticket_type }}</h1>
+    <form method="post" action="{{ url_for('passenger') }}">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div class="form-group">
+                        <label for="last_name">Họ và Đệm</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="first_name">Tên</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="gender">Giới tính</label>
+                        <input list="genders" class="form-control" id="gender" name="gender" required>
+                        <datalist id="genders">
+                            <option value="Nam">
+                            <option value="Nữ">
+                        </datalist>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="date_of_birth">Ngày sinh</label>
+                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="nationality">Quốc tịch</label>
+                        <input type="text" class="form-control" id="nationality" name="nationality" required>
+                    </div>
+                </td>
+                <td colspan="3">
+                    <div class="form-group">
+                        <label for="identity_card">Số CMND/Hộ chiếu</label>
+                        <input type="text" class="form-control" id="identity_card" name="identity_card" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="text" class="form-control" id="phone" name="phone" required>
+                    </div>
+                </td>
+                 <td colspan="1">
+                     <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <input type="submit" id="form" value="Tiếp tục" class="btn1">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}
