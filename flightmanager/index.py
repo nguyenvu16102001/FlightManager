@@ -172,6 +172,7 @@ def passenger():
                 user = utils.get_user(identity_card=identity_card)
                 if user:
                     user_id = user.user_id
+                    return redirect(url_for('seat_selection', user_id=user_id))
         except Exception as ex:
             err_msg = 'Hệ thống đang có lỗi:' + str(ex)
 
@@ -187,9 +188,9 @@ def seat_selection():
 
 @app.route('/payment')
 def payment():
-    bill_id = str(uuid.uuid4())[0:6]
-    while bill_id:
-        bill_id = str(uuid.uuid4())[0:6]
+    # bill_id = str(uuid.uuid4())[0:6]
+    # while bill_id:
+    #     bill_id = str(uuid.uuid4())[0:6]
     user_id = request.args.get('user_id')
     seat_id = request.args.get('seat_id')
     price = utils.get_ticket_price(flight_id=flight_id, ticket_type=ticket_type)

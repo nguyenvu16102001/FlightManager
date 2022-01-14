@@ -1,4 +1,4 @@
-{% extends 'layout/base.html' %}
+{% extends 'layout/base-login.html' %}
 
 {% block title %}Đặt Vé{% endblock %}
 
@@ -20,34 +20,34 @@
           <table style="width:100%;">
             <tr>
               <td >
-                <time id="departure_time" class="timeline">{{ f.departure_day.strftime("%H:%M") }}</time>
+                <time class="timeline">{{ f.departure_day.strftime("%H:%M") }}</time>
               </td>
               <td>to</td>
               <td >
-                <time id="arrival_time" class="timeline">{{ f.arrival_day.strftime("%H:%M") }}</time>
+                <time class="timeline">{{ f.arrival_day.strftime("%H:%M") }}</time>
               </td>
               <td rowspan="3">
-                <div id="flight_id" style="display:block;">{{ f.flight_id }}</div>
-                <div id="airplane_type" style="font-weight: 800; display:block;">{{ f.name }}</div>
+                <div style="display:block;">{{ f.flight_id }}</div>
+                <div style="font-weight: 800; display:block;">{{ f.name }}</div>
               </td>
             </tr>
             <tr>
               <td>
-                <div class="airport" id="departure_airport">{{ f.departure_airport }}</div>
+                <div class="airport">{{ f.departure_airport }}</div>
               </td>
               <td></td>
               <td>
-                <div class="airport" id="arrival_airport">{{ f.arrival_airport }}</div>
+                <div class="airport">{{ f.arrival_airport }}</div>
               </td>
             </tr>
             <tr >
               <td colspan="1">
-                <span id="flight_time">
+                <span>
                   {{ "{:.0f}".format(f.flight_time / 60) + ' tiếng ' + "{:.0f}".format(f.flight_time % 60) + ' phút' }}
                 </span>
               </td>
               <td style="font-weight: 600;">
-                <div id="fly">Bay thẳng</div>
+                <div>Bay thẳng</div>
               </td>
             </tr>
             <tr>

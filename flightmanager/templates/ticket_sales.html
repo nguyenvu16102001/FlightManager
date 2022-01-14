@@ -1,11 +1,6 @@
-{% extends 'layout/base.html' %}
+{% extends 'layout/base-login.html' %}
 
 {% block title %}Bán Vé{% endblock %}
-
-{% block header %}
-    {% include 'layout/header_ticket_sales.html' %}
-{% endblock %}
-
 {% block content %}
     {% if current_user.is_authenticated %}
 
@@ -16,49 +11,42 @@
 
 
 	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <script src="url_for('https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js')"></script>
-  <script src="url_for('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js') "></script>
-  <script src="url_for('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')"></script>
-   	<div class="container">
-		<div class="row">
-			<div class="col-md-2">
-                <table>
-                    <tr>
-                        <td>
-                            <button class="btn btn-oultline-info" type="button" data-toggle="collapse" data-target="#noi-dung-collapse">Đặt vé</button>
-
-                        </td>
-                        <td>
-                            <button class="btn btn-oultline-info" type="button" data-toggle="collapse" data-target="#noi-dung-collapse1">Tình trạng chuyến bay</button>
-
-                        </td>
-                    </tr>
-                </table>
-                    <div id="noi-dung-collapse" class="collslape">
-                            <div id="booking" class="section">
-                                <div class="section-center">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="booking-form">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <div class="form-checkbox">
-                                                            <label for="roundtrip">
-                                                                <input type="radio" id="roundtrip" name="flight-type">
-                                                                <span></span>Buy ticket
-                                                            </label>
-                                                            <label for="one-way">
-                                                                <input type="radio" id="one-way" name="flight-type">
-                                                                <span></span>One way
-                                                            </label>
-                                                            <label for="multi-city">
-                                                                <input type="radio" id="multi-city" name="flight-type">
-                                                                <span></span>Multi-City
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
+    <script src="url_for('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js') "></script>
+    <script src="url_for('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')"></script>
+<div id="accordion">
+    <table class="wrap-menu">
+        <tr style="height:50px;">
+            <td>
+                <button data-toggle="collapse" data-target="#demo" class="button-menu">Bán vé</button>
+            </td>
+            <td >
+                <button data-toggle="collapse" data-target="#demo1" class="button-menu">Tìm kiếm</button>
+            </td>
+            <td>
+                <a href="{{url_for('flight_scheduling')}}"><button class="button-menu" >Lập lịch chuyến bay</button></a>
+            </td>
+        </tr>
+    </table>
+    <div id="demo" class="collapse" data-parent="#accordion">
+        <div id="ticket">
+            <div class="row">
+                <div class="booking-form" style="width:96%; margin-top:10px;">
+                    <form>
+                        <div class="form-group">
+                            <div class="form-checkbox">
+                                <br>
+                                <label>
+            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_go"> Khứ hồi
+                                </label>
+                                <label>
+            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_go1"> Một chiều                                                              <span></span>One way
+                                </label>
+                            </div>
+                        </div>
+            <div id="ticket_go" class="collapse" data-parent="#ticket">
+                <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <span class="form-label">Flying from</span>
@@ -72,7 +60,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                <div class="row">
                                                         <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <span class="form-label">Departing</span>
@@ -108,114 +96,123 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="form-group">
-                                                                <span class="form-label">Travel class</span>
-                                                                <select class="form-control">
-                                                                    <option>Economy class</option>
-                                                                    <option>Business class</option>
-                                                                    <option>First class</option>
-                                                                </select>
-                                                                <span class="select-arrow"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="form-btn">
-                                                                <button class="submit-btn">Show flights</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-btn">
+                            <button class="submit-btn">Show flights</button>
                         </div>
-                    <div id="noi-dung-collapse1" class="collslape">
-                        	<div class="container">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <button class="btn btn-oultline-info" type="button" data-toggle="collapse" data-target="#noi-dung-collapse2">Sân bay</button>
-                                        <button class="btn btn-oultline-info" type="button" data-toggle="collapse" data-target="#noi-dung-collapse3">Số hiệu chuyến bay</button>
-                                        <div id="noi-dung-collapse2" class="collslape">
-                                            <div id="booking" class="section">
-                                <div class="section-center">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="booking-form">
-                                                <form>
-                                                    <div class="form-group">
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
+                    </div>
+                </div>
+            </div>
+            <div id="ticket_go1" class="collapse" data-parent="#ticket">
+                <div class="row">
+                    <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <span class="form-label">Flying from</span>
                                                                 <input class="form-control" type="text" placeholder="City or airport">
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6">
+                    <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <span class="form-label">Flyning to</span>
                                                                 <input class="form-control" type="text" placeholder="City or airport">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
+                </div>
+                <div class="row">
                                                         <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <span class="form-label">Departing</span>
-                                                                <input class="form-control form-control1" type="date" required>
+                                                                <input class="form-control" type="date" required>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-3">
+
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
+                                                                <span class="form-label">Adults (18+)</span>
+                                                                <select class="form-control">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                </select>
+                                                                <span class="select-arrow"></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-2">
                                                             <div class="form-group">
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-
+                                                                <span class="form-label">Children (0-17)</span>
+                                                                <select class="form-control">
+                                                                    <option>0</option>
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                </select>
+                                                                <span class="select-arrow"></span>
                                                             </div>
                                                         </div>
                                                     </div>
-
+                <div class="row">
                                                         <div class="col-md-3">
                                                             <div class="form-btn">
                                                                 <button class="submit-btn">Show flights</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+            </div>
+            </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="demo1" class="collapse" data-parent="#accordion">
+        <div id="ticket1">
+            <div class="row">
+                <div class="booking-form" style="width:96%; margin-top:10px;">
+                    <form>
+                        <div class="form-group">
+                            <div class="form-checkbox">
+                                <label>
+            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_goa"  checked> tìm theo điểm đi và điểm đến
+                                </label>
+                                <label>
+            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_go1a"> tìm theo chuyến                                                             <span></span>One way
+                                </label>
                             </div>
                         </div>
-                                        </div>
-                                        <div id="noi-dung-collapse3" class="collslape">
-                                            <div id="booking" class="section">
-                                <div class="section-center">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="booking-form">
-                                                <form>
-
-                                                    <div class="row">
-                                                        <div class="col-md-6">
+            <div id="ticket_goa" class="collapse" data-parent="#ticket1">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span class="form-label">Mã chuyến bay</span>
+                            <input class="form-control" type="text" placeholder="Flight number">
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-btn">
+                            <button class="submit-btn">Show flights</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ticket_go1a" class="collapse" data-parent="#ticket1">
+                <div class="row">
+                    <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <span class="form-label">Flight number</span>
-                                                                <input class="form-control" type="text" placeholder="Flight number">
+                                                                <span class="form-label">Flying from</span>
+                                                                <input class="form-control" type="text" placeholder="City or airport">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
+                    <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Flyning to</span>
+                                                                <input class="form-control" type="text" placeholder="City or airport">
+                                                            </div>
+                                                        </div>
+                </div>
+                <div class="row">
                                                         <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <span class="form-label">Departing</span>
@@ -223,54 +220,19 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <div class="form-group">
-                                                                <span class="form-label"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <span class="form-label"></span>
-
-                                                                <span class="select-arrow"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <span class="form-label"></span>
-
-                                                                <span class="select-arrow"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <div class="form-group">
-                                                                <span class="form-label"></span>
-
-                                                                <span class="select-arrow"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-3">
                                                             <div class="form-btn">
                                                                 <button class="submit-btn">Show flights</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            </div>
+            </form>
                     </div>
-                </div>
             </div>
         </div>
+
+    </div>
+</div>
 <!--&gt;>>>>>> 6179d4d (ticket_sales and flight_sheduling)-->
     {% else %}
         {% if err_msg %}
@@ -299,16 +261,14 @@
   color: black;
 }
 </style>
-<!--            <div class="alert alert-danger">-->
-<!--                <h4>{{ err_msg }}</h4>-->
-<!--            </div>-->
-<div class="alert">
+{% block login %}
+            {% include 'employee_login.html' %}
+        {% endblock %}
+<div class="alert" style="position:relative;">
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
   <strong>Danger!</strong> Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại.
 </div>
         {% endif %}
-        {% block login %}
-            {% include 'employee_login.html' %}
-        {% endblock %}
+
     {% endif %}
 {% endblock %}

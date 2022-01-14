@@ -2,8 +2,7 @@
 
 {% block title %}Đăng Nhập{% endblock %}
 
-<!--{% block content %}-->
-<!--<h1 class="text_login">Login</h1>-->
+{% block content %}
 
 {% if err_msg %}
     <div class="alert alert-danger">
@@ -11,8 +10,6 @@
     </div>
 {% endif %}
 
-<!--<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style_login.css') }}" />-->
-<!--<form method="post">-->
     <link href="{{ url_for('static', filename='css/user-login.css') }}" rel="stylesheet"/>
     <script src="{{ url_for('static', filename='javascript/user-login.js')}}"></script>
 
@@ -24,36 +21,14 @@
       <h2>Air<span> Flight</span></h2>
         <br>
       <h5>Sign in to your account.</h5>
-<!--        <input type="text" name="email" placeholder="Email" autocomplete="off">-->
         <input type="text" class="form-control" id="username" name="username" required>
         <i class="typcn typcn-eye" id="eye"></i>
-<!--        <input type="password" name="password" placeholder="Passsword" id="pwd" autocomplete="off">-->
          <input type="password" class="form-control" id="password" name="password" required>
-<!--        <div class="form-group">-->
-<!--        <label for="password">Mật khẩu</label>-->
-<!--        <input type="password" class="form-control" id="password" name="password" required>-->
-
         <a href="#" class="forgetpass">Forget Password?</a>
-<!--        <input type="submit" value="Sign in" class="btn1">-->
-        <input type="submit" value="Dang Nhap" class="btn1">
+        <input type="submit" value="Đăng nhập" class="btn1">
       </form>
         <a href="{{ url_for('user_register') }}" class="dnthave">Don't have an account? Sign up</a>
   </div>
 </div>
-<!--<form method="post">-->
-
-<!--    <div class="form_login">-->
-<!--        <br>-->
-<!--        <div class="form-group">-->
-<!--        <label for="username">Tên đăng nhập</label>-->
-<!--        <input type="text" class="form-control" id="username" name="username" required>-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--        <label for="password">Mật khẩu</label>-->
-<!--        <input type="password" class="form-control" id="password" name="password" required>-->
-<!--    </div>-->
-<!--    <input type="submit" value="Dang Nhap" class="btn btn-danger">-->
-<!--    <br><br>-->
-<!--    </div>-->
 </div>
 {% endblock %}

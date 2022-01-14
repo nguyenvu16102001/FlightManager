@@ -1,9 +1,18 @@
 {% extends 'layout/base.html' %}
 
 {% block title %}Đặt Vé{% endblock %}
-
+<link rel='stylesheet' href="{{ url_for('static', filename='css/style-payment.css')}}"/>
 {% block content %}
-<div class="container">
+<div class="row" style="width:100%;">
+<div  class="col-md-7 col-xs-12">
+    <table>
+        <tr>
+            <td>
+                <button style="color:white; background-color:green; border:none; padding:5px;">Chưa đặt chỗ</button>
+                <button style="color:white; background-color:gray; border:none; padding:5px;">Đã đặt chỗ</button>
+            </td>
+        </tr>
+    </table>
     <table class="table table-borderless">
         <thead>
             <tr>
@@ -41,11 +50,11 @@
             {% endif %}
             <td>
                 {% if seats[s].active == 1 %}
-                    <button class="btn btn-success" onclick="window.location.href='{{ url_for('payment', user_id=user_id, seat_id=seats[s].seat_id) }}';">
+                    <button style="border-radius:5px; background-color:green; color:white; border:none; width:35px; text-align:center;" onclick="window.location.href='{{ url_for('payment', user_id=user_id, seat_id=seats[s].seat_id) }}';">
                     {{ seats[s].seat_name }}
                     </button>
                 {% else %}
-                    <button class="btn btn-secondary">
+                    <button class="button-seat" id="button" style="border-radius:5px; background-color:gray; color:white; border:none; width:35px; text-align:center;" >
                     {{ seats[s].seat_name }}
                     </button>
                 {% endif %}
@@ -56,5 +65,60 @@
         {% endfor %}
         </tr>
     </table>
+</div>
+<div class="col-md-5 col-xs-2">
+                    Chuyến bay <span>VN302</span>: <span>TP.Hồ Chí Minh (SGN)</span> > <span>Hà Nội (HAN)</span>
+                    <div class="row" style="padding:10px; background-color:white;  margin:auto;">
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width:50%;">
+                                    <p>Khởi hành: <span>Sân bay Tân Sơn Nhất - Hồ Chí Minh</span></p>
+                                    <p>lúc <span>th 4 15 thg 3</span></p>
+                                    <p>Đến nơi:<span>Sân bay Nội Bài - Hà Nội</span></p>
+                                    <p>lúc <span>th 4 15 thg 3</span></p>
+                                    <hr>
+                                    <p>Thời gian bay:<span>0giờ 30 phút</span></p>
+                                    <p>Hạng: <span>phổ thông</span></p>
+                                    <p>Máy bay:<span> Airbus 321-100/200</span></p>
+                                    <p>Hãng khai thác: <span>VietNam Airline</span></p>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Hành khách:<span> 1</span> <span>Người lớn</span>
+                                <p>Bui Nguyen Dang Khoa </p>
+                                <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td>Giá vé:</td>
+                                            <td>19 000 000</td>
+                                            <td>VND</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thuế:</td>
+                                            <td>    0</td>
+                                            <td>VND</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <hr>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tổng cộng:</td>
+                                            <td style="color:red;">19 000 000</td>
+                                            <td>VND</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 </div>
 {% endblock %}
