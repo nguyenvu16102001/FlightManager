@@ -1,49 +1,39 @@
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <!-- Brand -->
-<!--  <a class="navbar-brand" href="{{url_for('ticket_sales')}}">Air-Flight</a>-->
+<link href="{{ url_for('static', filename='css/style-header.css') }}" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Toggler/collapsibe Button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="{{ url_for('static', filename='css/style-menu.css') }}" rel="stylesheet"/>
+			<nav id="sidebar">
+				<div class="p-4 pt-5">
+                        {% if current_user.avatar %}
+                            <img src="{{ current_user.avatar }}" width="30px" alt="{{ current_user.username }}">
+                        {% else %}
+                            <img src="https://res.cloudinary.com/du3xpvajy/image/upload/v1639925314/cnpm/download_x3ygfo.png" width="30px" alt="{{ current_user.username }}">
+                        {% endif %}
+             <ul class="list-unstyled components mb-5">
+	          <li>
+                  {{ current_user.username }}
+              </li>
+                <li class="active">
+	            <a href="{{url_for('home')}}">Home</a>
+	          </li>
+                {% if current_user.is_authenticated %}
+                <li>
+                    <a class="nav-link text-success" href="{{ url_for('user_logout', name = 'user_login') }}">Dang Xuat</a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="nav-link text-success" href="{{ url_for('user_login') }}">Dang Nhap</a>
+                </li>
+                <li>
+                    <a class="nav-link text-danger" href="{{ url_for('user_register') }}">Dang Ky</a>
+                </li>
+                {% endif %}
+	        </ul>
+	      </div>
+    	</nav>
+    <script src="{{ url_for('static', filename='javascript/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/main.js') }}"></script>
 
-<!--   Navbar links-->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-<!--          <li>-->
-<!--            <a class="nav-link {% if 'category_id' not in request.args %} active {% endif %}" href="/">Trang Chu</a>-->
-<!--          </li>-->
-<!--        {% for c in categories %}-->
-<!--          <li class="nav-item {% if 'category_id' in request.args and c.id == request.args.category_id|int %} active {% endif %}">-->
-<!--            <a class="nav-link" href="{{ url_for('home', category_id=c.id) }}">{{ c.name }}</a>-->
-<!--          </li>-->
-<!--        {% endfor %}-->
-        {% if current_user.is_authenticated %}
-
-            <li class="nav-item">
-                <a class="nav-link text-success" href="{{ url_for('flight_status') }}">TÌNH TRẠNG CHUYẾN BAY</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-danger" href="{{ url_for('home') }}">
-                    {% if current_user.avatar %}
-                        <img src="{{ current_user.avatar }}" width="30px" alt="{{ current_user.username }}">
-                    {% else %}
-                        <img src="#" width="30px" alt="{{ current_user.username }}">
-                    {% endif %}
-                    {{ current_user.username }}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-success" href="{{ url_for('user_logout', name = 'user_login') }}">Dang Xuat</a>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="nav-link text-danger" href="{{ url_for('user_register') }}">Dang Ky</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-success" href="{{ url_for('user_login') }}">Dang Nhap</a>
-            </li>
-        {% endif %}
-    </ul>
-  </div>
-</nav>

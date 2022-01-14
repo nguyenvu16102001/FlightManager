@@ -1,12 +1,10 @@
 <link href="{{ url_for('static', filename='css/user-login.css') }}" rel="stylesheet"/>
-<h1 class="text-info text-center">Login Staff</h1>
 <div class="wrap-on-footer">
     <div class="animated bounceInDown">
-        <div class="container1">
+        <div class="container3">
             <form method="post" action="{{ url_for('employee_login') }}">
-<!--                <h2>Air Flight<span> staff</span></h2>-->
-<!--                <h5>Sign in to your account.</h5>-->
-                <div class="form-group">
+                    <span class="error animated tada" id="msg"></span>
+                <div class="form-group" style="margin-top:20px;">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control" name="username" placeholder="Nhap username" id="username">
                 </div>
