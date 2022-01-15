@@ -9,14 +9,20 @@
 <script src="url_for('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')"></script>
 <link rel='stylesheet' href="{{ url_for('static', filename='css/flight_selection.css')}}" type='text/css' media='all' />
 <!--<link rel="stylesheet" href="flight_selection.css">-->
+
+      <div class="row">
+        <div class="col-sm-8" style="padding-left:100px;"></div>
+          <div  data-toggle="collapse" href="#collapseOne" class="col-sm-2 btn btn-info">Hạng phổ thông</div>
+          <div data-toggle="collapse" href="#collapseTwo" class="col-sm-2 btn btn-success">Hạng thương gia</div>
+
+        </div>
 {% if flight %}
     {% for f in flight %}
-      <div class="right">
-      <div  data-toggle="collapse" href="#collapseOne" class="button-class">Hạng phổ thông</div>
-      <div data-toggle="collapse" href="#collapseTwo" class="button-class">Hạng thương gia</div>
-      </div>
+
       <div class="class-select">
-        <div class="wrap-summary">
+          <div class="row">
+          <div class="col-sm-8">
+            <div class="wrap-summary">
           <table style="width:100%;">
             <tr>
               <td >
@@ -26,7 +32,7 @@
               <td >
                 <time class="timeline">{{ f.arrival_day.strftime("%H:%M") }}</time>
               </td>
-              <td rowspan="3">
+              <td rowspan="2">
                 <div style="display:block;">{{ f.flight_id }}</div>
                 <div style="font-weight: 800; display:block;">{{ f.name }}</div>
               </td>
@@ -51,13 +57,69 @@
               </td>
             </tr>
             <tr>
-              <td>
-                <button data-toggle="collapse" data-target="#demo" class="button-none">Xem chi tiết></button>
+              <td colspan="4">
+                <div class="dropdown">
+                  <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown">
+                    Xem chi tiết >
+                  </button>
+                  <div class="dropdown-menu btn btn-primary btn-block">
+                    <table>
+                            <tr>
+                              <td rowspan="5">
+                                <div style="height:100%; border:1px solid black; width:2px;" > </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-weight: 800; font-size:16px; text-align:left;">
+                                <time id="departure_day">{{ f.departure_day }}</time>
+                              </td>
+                              <td style="font-weight: 800; font-size:16px; text-align:left;">
+                                <span>
+                                  {% for a in airports%}
+                                    {% if a.airport_id == f.departure_airport %}
+                                      {{ a.location }}
+                                    {% endif %}
+                                  {% endfor %}
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="text-align:left;">Máy bay:</td>
+                              <td>
+                                <div id="flight-type" style="font-weight: 600; display:block; text-align:left;">{{ f.name }}</div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="text-align:left;">Thời gian di chuyển:</td>
+                              <td>
+                                <div id="flight-time" style="font-weight: 600; display:block; text-align:left;">
+                                  {{ "{:.0f}".format(f.flight_time / 60) + ' tiếng ' + "{:.0f}".format(f.flight_time % 60) + ' phút' }}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-weight: 800; font-size:16px; text-align:left;">
+                                <time id="arrival_day">{{ f.arrival_day }}</time>
+                              </td>
+                              <td style="font-weight: 800; font-size:16px; text-align:left;">
+                                <span>
+                                    {% for a in airports%}
+                                    {% if a.airport_id == f.arrival_airport %}
+                                      {{ a.location }}
+                                    {% endif %}
+                                  {% endfor %}
+                                </span>
+                              </td>
+                            </tr>
+                          </table>
+                  </div>
+                </div>
               </td>
             </tr>
           </table>
+          </div>
         </div>
-        <div style="float:left;">
+        <div class="col-sm-2">
           <button class="button-select" onclick="window.location.href='{{ url_for('passenger', flight_id=f.flight_id, ticket_type=1) }}';">
             <div>
                 {% for t in ticket_prices %}
@@ -67,7 +129,9 @@
                 {% endfor %}
             </div>
           </button>
-          <button class="button-select1" onclick="window.location.href='{{ url_for('passenger', flight_id=f.flight_id, ticket_type=2) }}';">
+        </div>
+            <div class="col-sm-2">
+          <button class="button-select" onclick="window.location.href='{{ url_for('passenger', flight_id=f.flight_id, ticket_type=2) }}';">
             <div>
               {% for t in ticket_prices%}
                       {% if t.flight_id == f.flight_id and t.ticket_type == 2 %}
@@ -76,63 +140,10 @@
                 {% endfor %}
             </div>
         </button>
-        </div>
-      </div>
-      <div>
-        <div id="demo" class="collapse">
-          <div class="detail">
-            <table>
-              <tr>
-                <td rowspan="5">
-                  <div style="height:100%; border:1px solid black; width:2px;" > </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="font-weight: 800; font-size:16px; text-align:left;">
-                  <time id="departure_day">{{ f.departure_day }}</time>
-                </td>
-                <td style="font-weight: 800; font-size:16px; text-align:left;">
-                  <span>
-                    {% for a in airports%}
-                      {% if a.airport_id == f.departure_airport %}
-                        {{ a.location }}
-                      {% endif %}
-                    {% endfor %}
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Máy bay:</td>
-                <td>
-                  <div id="flight-type" style="font-weight: 600; display:block; text-align:left;">{{ f.name }}</div>
-                </td>
-              </tr>
-              <tr>
-                <td style="text-align:left;">Thời gian di chuyển:</td>
-                <td>
-                  <div id="flight-time" style="font-weight: 600; display:block; text-align:left;">
-                    {{ "{:.0f}".format(f.flight_time / 60) + ' tiếng ' + "{:.0f}".format(f.flight_time % 60) + ' phút' }}
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="font-weight: 800; font-size:16px; text-align:left;">
-                  <time id="arrival_day">{{ f.arrival_day }}</time>
-                </td>
-                <td style="font-weight: 800; font-size:16px; text-align:left;">
-                  <span>
-                      {% for a in airports%}
-                      {% if a.airport_id == f.arrival_airport %}
-                        {{ a.location }}
-                      {% endif %}
-                    {% endfor %}
-                  </span>
-                </td>
-              </tr>
-            </table>
           </div>
         </div>
       </div>
+  </div>
     {% endfor %}
 {% else%}
     <h1 class="text-danger text-center">Chuyến bay không tồn tại</h1>
