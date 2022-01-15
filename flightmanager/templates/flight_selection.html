@@ -9,16 +9,13 @@
 <script src="url_for('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')"></script>
 <link rel='stylesheet' href="{{ url_for('static', filename='css/flight_selection.css')}}" type='text/css' media='all' />
 <!--<link rel="stylesheet" href="flight_selection.css">-->
-
-      <div class="row">
-        <div class="col-sm-8" style="padding-left:100px;"></div>
-          <div  data-toggle="collapse" href="#collapseOne" class="col-sm-2 btn btn-info">Hạng phổ thông</div>
-          <div data-toggle="collapse" href="#collapseTwo" class="col-sm-2 btn btn-success">Hạng thương gia</div>
-
-        </div>
+<div class="row">
+    <div class="col-sm-8" style="padding-left:100px;"></div>
+  <div  data-toggle="collapse" href="#collapseOne" class="col-sm-2 btn btn-info">Hạng phổ thông</div>
+  <div data-toggle="collapse" href="#collapseTwo" class="col-sm-2 btn btn-success">Hạng thương gia</div>
+</div>
 {% if flight %}
     {% for f in flight %}
-
       <div class="class-select">
           <div class="row">
           <div class="col-sm-8">
@@ -143,7 +140,7 @@
           </div>
         </div>
       </div>
-  </div>
+
     {% endfor %}
 {% else%}
     <h1 class="text-danger text-center">Chuyến bay không tồn tại</h1>
