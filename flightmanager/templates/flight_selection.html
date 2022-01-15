@@ -62,10 +62,10 @@
             </div>
           </div>
         <div class="col-sm-2">
-          <button class="button-select" onclick="window.location.href='{{ url_for('passenger', flight_id=f.flight_id, ticket_type=1) }}';">
+          <button class="button-select" onclick="window.location.href='{{ url_for('passenger', flight_id=f.flight_id, ticket_type=2) }}';">
             <div>
                 {% for t in ticket_prices %}
-                      {% if t.flight_id == f.flight_id and t.ticket_type == 1 %}
+                      {% if t.flight_id == f.flight_id and t.ticket_type == 2 %}
                         {{ "{:.0f}".format(t.price) }}
                       {% endif %}
                 {% endfor %}
@@ -73,10 +73,10 @@
           </button>
         </div>
             <div class="col-sm-2">
-          <button class="button-select" onclick="window.location.href='{{ url_for('passenger', flight_id=f.flight_id, ticket_type=2) }}';">
+          <button class="button-select" onclick="window.location.href='{{ url_for('passenger', flight_id=f.flight_id, ticket_type=1) }}';">
             <div>
-              {% for t in ticket_prices%}
-                      {% if t.flight_id == f.flight_id and t.ticket_type == 2 %}
+              {% for t in ticket_prices %}
+                      {% if t.flight_id == f.flight_id and t.ticket_type == 1 %}
                         {{ "{:.0f}".format(t.price) }}
                       {% endif %}
                 {% endfor %}
