@@ -235,7 +235,7 @@
 </div>
 <!--&gt;>>>>>> 6179d4d (ticket_sales and flight_sheduling)-->
     {% else %}
-        {% if err_msg %}
+    {% if err_msg %}
 <style>
 .alert {
   padding: 20px;
@@ -261,14 +261,14 @@
   color: black;
 }
 </style>
-{% block login %}
-            {% include 'employee_login.html' %}
-        {% endblock %}
+
 <div class="alert" style="position:relative;">
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
   <strong>Danger!</strong> Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại.
 </div>
         {% endif %}
-
+{% block login %}
+            {% include 'employee_login.html' %}
+{% endblock %}
     {% endif %}
 {% endblock %}
