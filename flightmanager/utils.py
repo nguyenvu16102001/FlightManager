@@ -91,9 +91,10 @@ def add_flight(flight_id, airplane_id, schedule_id, flight_time, departure_day, 
         raise
 
 
-def delete_flight(flight_id):
-    Flight.query.filter(Flight.flight_id==flight_id).delete()
+def delete_flight(flight):
+    db.session.delete(flight)
     db.session.commit()
+
 
 def add_seat_class(flight_id, business_class, economy_class):
     seat_class1 = SeatClass(flight_id=flight_id, seat_type=1, seat_number=business_class)
@@ -101,21 +102,29 @@ def add_seat_class(flight_id, business_class, economy_class):
 
     db.session.add(seat_class1)
     db.session.add(seat_class2)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback()
+        raise
 
 
 def add_transit_airport(transit_airport_id, flight_id, timing_point, arrival_day=None, note=None):
     transit_airport = TransitAirport(transit_airport_id=transit_airport_id, flight_id=flight_id,
                                      timing_point=timing_point, arrival_day=arrival_day, note=note)
-
     db.session.add(transit_airport)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback()
+        raise
 
 
 def delete_transit_airport(flight_id):
-    transit = TransitAirport.query.filter(TransitAirport.flight_id==flight_id).all()
-    db.session.delete(transit)
-    db.session.commit()
+    transit = TransitAirport.query.filter(TransitAirport.flight_id.__eq__(flight_id)).all()
+    if transit:
+        db.session.delete(transit)
+        db.session.commit()
 
 
 def flight_scheduling(flight_id, airplane_id, departure_airport, arrival_airport, departure_day, flight_time, business_class, economy_class, transit_airports, timing_points, notes):
@@ -137,11 +146,11 @@ def flight_scheduling(flight_id, airplane_id, departure_airport, arrival_airport
                         add_transit_airport(transit_airport_id=transit_airports[i], flight_id=flight_id,
                                             timing_point=timing_points[i], arrival_day=departure_day, note=notes[i])
                 return 1
-            except Exception:
+            except:
                 flight = get_flight_by_id(flight_id=flight_id)
                 if flight:
                     delete_transit_airport(flight_id=flight_id)
-                    delete_flight(flight_id=flight_id)
+                    delete_flight(flight=flight)
         else:
             return 2
     return -1
@@ -152,7 +161,7 @@ def get_flight_by_id(flight_id):
 
 
 def get_flight_status(departure_airport, arrival_airport, departure_day):
-    departure_day = datetime.strptime(departure_day, "%Y-%m-%dT%H:%M")
+    departure_day = datetime.strptime(departure_day, "%Y-%m-%d")
     status = db.session.query(Flight.flight_id, Flight.airplane_id, Flight.flight_time, Flight.departure_day,
                               Flight.arrival_day, AirplaneType.name, Airline.airline_name,
                               Schedule.departure_airport, Schedule.arrival_airport) \
@@ -197,7 +206,7 @@ def get_list_ticket_price():
 
 
 def get_ticket_price(flight_id, ticket_type):
-    return Flight.query.filter(TicketPrice.flight_id.__eq__(flight_id), TicketPrice.ticket_type.__eq__(ticket_type)).first()
+    return TicketPrice.query.filter(TicketPrice.flight_id.__eq__(flight_id), TicketPrice.ticket_type.__eq__(ticket_type)).first()
 
 
 def get_user_by_id(user_id):
@@ -206,3 +215,30 @@ def get_user_by_id(user_id):
 
 def get_bill_by_id(bill_id):
     return Bill.query.get(bill_id)
+
+
+def add_ticket(flight_id, customer_id, bill_id, ticket_type, seat_id):
+    ticket = Ticket(flight_id=flight_id, customer_id=customer_id, bill_id=bill_id,
+                    ticket_type=ticket_type, seat_id=seat_id)
+
+    db.session.add(ticket)
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback()
+        raise
+
+
+def add_bill(bill_id, employee_id, amount):
+    bill = Bill(bill_id=bill_id, employee_id=employee_id, amount=amount)
+
+    db.session.add(bill)
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback()
+        raise
+
+
+def get_seat_by_id(seat_id):
+    return Seat.query.get(seat_id)

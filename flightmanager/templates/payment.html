@@ -12,17 +12,26 @@
                         Mã đặt chỗ
                     </div>
                     <div style=" color:black; text-align:center; border:1px solid black; height:50px;">
-                        KNSKDFG
+                        {{ bill_id }}
                     </div>
                 </td>
                 <td style="padding:10px;">
-                  <p>Chuyến đi từ</p>
+                    <p>Chuyến đi từ</p>
                     <div>
-                        <span>Tp.Hồ Chí Minh</span> đến <span> Hà Nội</span>
+                    {% for a in airports %}
+                        {% if a.airport_id == flight.departure_airport %}
+                            <span>{{a.location + '(' + a.airport_id + ')' }}</span> >
+                        {% endif %}
+                    {% endfor %}
+                    {% for a in airports %}
+                        {% if a.airport_id == flight.arrival_airport %}
+                            <span>{{a.location + '(' + a.airport_id + ')' }}</span>
+                        {% endif %}
+                    {% endfor %}
                     </div>
                     <p>Ngày bay</p>
                     <div>
-                        <span>th 4 15 thg 3</span> đến <span> th 4 15 thg 3</span>
+                        <span>{{ flight.departure_day }}</span> đến <span>{{ flight.arrival_day }}</span>
                     </div>
                 </td>
             </tr>
@@ -30,24 +39,38 @@
     </div>
 <hr>
 <div style="background-color:#CDF0EA; padding:10px;">
-    Chuyến bay <span>VN302</span>: <span>TP.Hồ Chí Minh (SGN)</span> > <span>Hà Nội (HAN)</span>
+    Chuyến bay <span>{{ flight.flight_id }}</span>:
+    {% for a in airport %}
+        {% if a == flight.departure_airport %}
+            <span>{{a.location + '(' + a.airport_id + ')' }}</span> >
+        {% endif %}
+        {% if a == flight.arrival_airport %}
+            <span>{{a.location + '(' + a.airport_id + ')' }}</span> >
+        {% endif %}
+    {% endfor %}
     <div class="row" style="padding:10px; background-color:white; width:95%; margin:auto;">
         <table style="width:100%;">
             <tr>
                 <td style="width:50%;">
-                    <p>Khởi hành: <span>th 4 15 thg 3</span></p>
+                    <p>Khởi hành: <span>t{{ flight.departure_day }}</span></p>
                     <p>Đến nơi:
-                    <span> th 4 15 thg 3</span></p>
-                    <p>Thời gian bay:<span>0giờ 30 phút</span></p>
-                    <p>Hạng: <span>phổ thông</span></p>
-                    <p>Máy bay:<span> Airbus 321-100/200</span></p>
-                    <p>Hãng khai thác: <span>VietNam Airline</span></p>
+                    <span>{{ flight.arrival_day }}</span></p>
+                    <p>Thời gian bay:<span>{{ "{:.0f}".format(flight.flight_time / 60) + ' tiếng ' + "{:.0f}".format(flight.flight_time % 60) + ' phút' }}</span></p>
+                    <p>Hạng:
+                        {% if price.ticket_type == 1 %}
+                        <span>Thương gia</span>
+                        {% elif price.ticket_type == 2 %}
+                        <span>Phổ thông</span>
+                        {% endif %}
+                    </p>
+                    <p>Máy bay:<span>{{ flight.name }}</span></p>
+                    <p>Hãng khai thác: <span>{{ flight.airline_name }}</span></p>
                 </td>
                 <td>
-                    <span>Bui Nguyen Dang Khoa</span>
+                    <span>{{ user.last_name + " " + user.first_name }}</span>
                 </td>
                 <td>
-                    <p>Chỗ ngồi: <span>19G</span></p>
+                    <p>Chỗ ngồi: <span>{{seat.seat_name}}</span></p>
                 </td>
             </tr>
         </table>

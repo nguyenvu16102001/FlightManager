@@ -67,27 +67,59 @@
     </table>
 </div>
 <div class="col-md-5 col-xs-2">
-                    Chuyến bay <span>VN302</span>: <span>TP.Hồ Chí Minh (SGN)</span> > <span>Hà Nội (HAN)</span>
+                    Chuyến bay <span>{{ flight.flight_id }}</span>:
+                    {% for a in airports %}
+                        {% if a.airport_id == flight.departure_airport %}
+                            <span>{{a.location + '(' + a.airport_id + ')' }}</span> >
+                        {% endif %}
+                    {% endfor %}
+                    {% for a in airports %}
+                        {% if a.airport_id == flight.arrival_airport %}
+                            <span>{{a.location + '(' + a.airport_id + ')' }}</span>
+                        {% endif %}
+                    {% endfor %}
                     <div class="row" style="padding:10px; background-color:white;  margin:auto;">
                         <table style="width:100%;">
                             <tr>
                                 <td style="width:50%;">
-                                    <p>Khởi hành: <span>Sân bay Tân Sơn Nhất - Hồ Chí Minh</span></p>
-                                    <p>lúc <span>th 4 15 thg 3</span></p>
-                                    <p>Đến nơi:<span>Sân bay Nội Bài - Hà Nội</span></p>
-                                    <p>lúc <span>th 4 15 thg 3</span></p>
+                                    <p>Khởi hành:
+                                        {% for a in airports %}
+                                            {% if a.airport_id == flight.departure_airport %}
+                                                <span>{{a.airport_name + ' - ' + a.location }}</span> >
+                                            {% endif %}
+                                        {% endfor %}
+                                    </p>
+                                    <p>lúc <span>{{ flight.departure_day }}</span></p>
+                                    <p>Đến nơi:
+                                        {% for a in airports %}
+                                            {% if a.airport_id == flight.arrival_airport %}
+                                                <span>{{a.airport_name + ' - ' + a.location }}</span> >
+                                            {% endif %}
+                                        {% endfor %}
+                                    </p>
+                                    <p>lúc <span>{{ flight.arrival_day }}</span></p>
                                     <hr>
-                                    <p>Thời gian bay:<span>0giờ 30 phút</span></p>
-                                    <p>Hạng: <span>phổ thông</span></p>
-                                    <p>Máy bay:<span> Airbus 321-100/200</span></p>
-                                    <p>Hãng khai thác: <span>VietNam Airline</span></p>
+                                    <p>Thời gian bay:
+                                        <span>
+                                            {{ "{:.0f}".format(flight.flight_time / 60) + ' tiếng ' + "{:.0f}".format(flight.flight_time % 60) + ' phút' }}
+                                        </span>
+                                    </p>
+                                    <p>Hạng:
+                                        {% if price.ticket_type == 1 %}
+                                        <span>Thương gia</span>
+                                        {% elif price.ticket_type == 2 %}
+                                        <span>Phổ thông</span>
+                                        {% endif %}
+                                    </p>
+                                    <p>Máy bay:<span> {{ flight.name }}</span></p>
+                                    <p>Hãng khai thác: <span>{{ flight.airline_name }}</span></p>
                                     <hr>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     Hành khách:<span> 1</span> <span>Người lớn</span>
-                                <p>Bui Nguyen Dang Khoa </p>
+                                <p>{{ user.last_name + " " + user.first_name }}</p>
                                 <br>
                                 </td>
                             </tr>
@@ -96,7 +128,7 @@
                                     <table style="width:100%;">
                                         <tr>
                                             <td>Giá vé:</td>
-                                            <td>19 000 000</td>
+                                            <td>{{ "{:.0f}".format(price.price) }}</td>
                                             <td>VND</td>
                                         </tr>
                                         <tr>
@@ -111,7 +143,7 @@
                                         </tr>
                                         <tr>
                                             <td>Tổng cộng:</td>
-                                            <td style="color:red;">19 000 000</td>
+                                            <td style="color:red;">{{ "{:.0f}".format(price.price) }}</td>
                                             <td>VND</td>
                                         </tr>
                                     </table>

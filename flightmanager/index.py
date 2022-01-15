@@ -172,7 +172,6 @@ def passenger():
                 user = utils.get_user(identity_card=identity_card)
                 if user:
                     user_id = user.user_id
-                    return redirect(url_for('seat_selection', user_id=user_id))
         except Exception as ex:
             err_msg = 'Hệ thống đang có lỗi:' + str(ex)
 
@@ -183,34 +182,52 @@ def passenger():
 def seat_selection():
     user_id = request.args.get('user_id')
     seats = utils.get_seats(flight_id=flight_id, seat_type=ticket_type)
-    return render_template('seat_selection.html', user_id=user_id, seats=seats)
+    flight = utils.get_flight_status_by_flight_id(flight_id=flight_id)
+    user = utils.get_user_by_id(user_id=user_id)
+    price = utils.get_ticket_price(flight_id=flight_id, ticket_type=ticket_type)
+    aiprorts = utils.get_list_airport()
+    return render_template('seat_selection.html', user_id=user_id, seats=seats, flight=flight, airports=aiprorts,
+                            user=user, price=price)
 
 
 @app.route('/payment')
 def payment():
-    # bill_id = str(uuid.uuid4())[0:6]
-    # while bill_id:
-    #     bill_id = str(uuid.uuid4())[0:6]
+    err_msg = ''
+    bill_id = str(uuid.uuid4())[0:6].upper()
+    while utils.get_bill_by_id(bill_id=bill_id):
+        bill_id = str(uuid.uuid4())[0:6].upper()
     user_id = request.args.get('user_id')
     seat_id = request.args.get('seat_id')
+    employee_id = request.args.get('employee_id')
     price = utils.get_ticket_price(flight_id=flight_id, ticket_type=ticket_type)
+    amount = price.price
     user = utils.get_user_by_id(user_id=user_id)
     flight = utils.get_flight_status_by_flight_id(flight_id=flight_id)
-    return render_template('payment.html', price=price, user=user, flight=flight)
+    aiprorts = utils.get_list_airport()
+    seat = utils.get_seat_by_id(seat_id=seat_id)
+    if employee_id == None:
+        employee_id = 1
+    utils.add_bill(bill_id=bill_id, employee_id=employee_id, amount=amount)
+    utils.add_ticket(flight_id=flight_id, customer_id=user_id, bill_id=bill_id,
+                     ticket_type=ticket_type, seat_id=seat_id)
+
+    return render_template('payment.html', err_msg=err_msg, bill_id=bill_id, price=price, user=user, flight=flight,
+                           airports=aiprorts, seat=seat)
 
 
 @app.route('/flight-status')
 def flight_status():
     airports = utils.get_list_airport()
-    departure_airport = request.form.get('departure_airport')
-    arrival_airport = request.form.get('arrival_airport')
-    departure_day = request.form.get('departure_day')
+    ticket_prices = utils.get_list_ticket_price()
+    departure_airport = request.args.get("departure_airport")
+    arrival_airport = request.args.get("arrival_airport")
+    departure_day = request.args.get("departure_day")
+    flight = None
     if departure_airport and arrival_airport and departure_day:
-        status = utils.get_flight_status(departure_airport=departure_airport, arrival_airport=arrival_airport,
+        flight = utils.get_flight_status(departure_airport=departure_airport, arrival_airport=arrival_airport,
                                          departure_day=departure_day)
-        return redirect('flight_status.html', status=status)
 
-    return render_template('flight_status.html', airports=airports)
+    return render_template('flight_status.html', flight=flight, airports=airports)
 
 
 @app.route('/flight-scheduling')
