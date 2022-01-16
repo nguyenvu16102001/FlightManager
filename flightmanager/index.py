@@ -1,21 +1,59 @@
 import cloudinary.uploader
+from datetime import datetime, timedelta
 from flightmanager import app, utils, login
 from flask import render_template, request, redirect, url_for
 from flightmanager.models import UserRole
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from flightmanager.admin import *
 import uuid
 
 
+flight_id = None
+ticket_type = None
+
+
 @app.route('/')
 def home():
+    if current_user.is_authenticated:
+        if current_user.user_role != None:
+            user_logout()
     airports = utils.get_list_airport()
     return render_template('index.html', airports=airports)
 
 
 @app.route('/ticket-sales')
 def ticket_sales():
-    return render_template('ticket_sales.html')
+    err_msg = ''
+    airports = utils.get_list_airport()
+    regulations = utils.get_regulations_by_id(regulations_id=1)
+    flight_id = request.args.get('flight_id')
+    ticket_type = request.args.get('ticket_type')
+    if flight_id and ticket_type:
+        flight = utils.get_flight_by_id(flight_id=flight_id)
+        if flight == None:
+            err_msg='Chuyến bay không tồn tại'
+        elif flight.departure_day - timedelta(hours=int(regulations.ticket_sales_time)) < datetime.now():
+            err_msg = 'Thời gian khởi hành không đúng quy định'
+        else:
+            return redirect(url_for('passenger', flight_id=flight_id, ticket_type=ticket_type))
+    return render_template('ticket_sales.html', airports=airports, err_msg=err_msg)
+
+
+@app.route('/flight-information')
+def flight_information():
+    airports = utils.get_list_airport()
+    departure_airport = request.args.get("departure_airport")
+    arrival_airport = request.args.get("arrival_airport")
+    departure_day = request.args.get("departure_day")
+    flight_id = request.args.get("flight_id")
+    ticket_prices = utils.get_list_ticket_price()
+    regulations = utils.get_regulations_by_id(regulations_id=1)
+    flight = None
+    if (departure_airport and arrival_airport and departure_day) or flight_id:
+        flight = utils.get_flight_status(departure_airport=departure_airport, arrival_airport=arrival_airport,
+                                         departure_day=departure_day, flight_id=flight_id, time=regulations.ticket_sales_time)
+
+    return render_template('flight_information.html', flight=flight, airports=airports, ticket_prices=ticket_prices)
 
 
 @app.route('/register', methods=['get', 'post'])
@@ -79,7 +117,7 @@ def user_login():
 @app.route('/user-logout')
 def user_logout():
     logout_user()
-    name = request.args.get('name')
+    name = request.args.get('name', 'home')
     return redirect(url_for(name))
 
 
@@ -129,16 +167,15 @@ def flight_selection():
     departure_airport = request.args.get("departure_airport")
     arrival_airport = request.args.get("arrival_airport")
     departure_day = request.args.get("departure_day")
+    regulations = utils.get_regulations_by_id(regulations_id=1)
     flight = None
+    number_of_tickets = utils.count_tikets()
     if departure_airport and arrival_airport and departure_day:
         flight = utils.get_flight_status(departure_airport=departure_airport, arrival_airport=arrival_airport,
-                                         departure_day=departure_day)
+                                         departure_day=departure_day, time=regulations.ticket_booking_time)
 
-    return render_template('flight_selection.html', flight=flight, airports=airports, ticket_prices=ticket_prices)
-
-
-flight_id = None
-ticket_type = None
+    return render_template('flight_selection.html', flight=flight, airports=airports, ticket_prices=ticket_prices,
+                           number_of_tickets=number_of_tickets)
 
 
 @app.route('/passengers', methods=['get', 'post'])
@@ -172,6 +209,8 @@ def passenger():
                 user = utils.get_user(identity_card=identity_card)
                 if user:
                     user_id = user.user_id
+                    utils.add_customer(user_id=user_id)
+                    return redirect(url_for('seat_selection', user_id=user_id))
         except Exception as ex:
             err_msg = 'Hệ thống đang có lỗi:' + str(ex)
 
@@ -198,15 +237,18 @@ def payment():
         bill_id = str(uuid.uuid4())[0:6].upper()
     user_id = request.args.get('user_id')
     seat_id = request.args.get('seat_id')
-    employee_id = request.args.get('employee_id')
     price = utils.get_ticket_price(flight_id=flight_id, ticket_type=ticket_type)
     amount = price.price
     user = utils.get_user_by_id(user_id=user_id)
     flight = utils.get_flight_status_by_flight_id(flight_id=flight_id)
     aiprorts = utils.get_list_airport()
     seat = utils.get_seat_by_id(seat_id=seat_id)
-    if employee_id == None:
-        employee_id = 1
+    employee_id = None
+    if current_user.is_authenticated:
+        if current_user.user_role == UserRole.EMPLOYEE:
+            employee_id = current_user.user_id
+        else:
+            employee_id = 1
     utils.add_bill(bill_id=bill_id, employee_id=employee_id, amount=amount)
     utils.add_ticket(flight_id=flight_id, customer_id=user_id, bill_id=bill_id,
                      ticket_type=ticket_type, seat_id=seat_id)
@@ -218,7 +260,6 @@ def payment():
 @app.route('/flight-status')
 def flight_status():
     airports = utils.get_list_airport()
-    ticket_prices = utils.get_list_ticket_price()
     departure_airport = request.args.get("departure_airport")
     arrival_airport = request.args.get("arrival_airport")
     departure_day = request.args.get("departure_day")

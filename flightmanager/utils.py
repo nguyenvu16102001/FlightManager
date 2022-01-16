@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from flightmanager import app, db
 from flightmanager.models import *
-from sqlalchemy.sql import extract
+from sqlalchemy.sql import extract, func, distinct
 import hashlib
 
 
@@ -160,8 +160,7 @@ def get_flight_by_id(flight_id):
     return Flight.query.get(flight_id)
 
 
-def get_flight_status(departure_airport, arrival_airport, departure_day):
-    departure_day = datetime.strptime(departure_day, "%Y-%m-%d")
+def get_flight_status(departure_airport, arrival_airport, departure_day, time=None, flight_id=None):
     status = db.session.query(Flight.flight_id, Flight.airplane_id, Flight.flight_time, Flight.departure_day,
                               Flight.arrival_day, AirplaneType.name, Airline.airline_name,
                               Schedule.departure_airport, Schedule.arrival_airport) \
@@ -171,11 +170,18 @@ def get_flight_status(departure_airport, arrival_airport, departure_day):
         .join(Schedule, Schedule.schedule_id.__eq__(Flight.schedule_id))
 
     if departure_airport and arrival_airport and departure_day:
+        departure_day = datetime.strptime(departure_day, "%Y-%m-%d")
         status = status.filter(Schedule.departure_airport.__eq__(departure_airport),
                                Schedule.arrival_airport.__eq__(arrival_airport),
                                extract('day', Flight.departure_day) == departure_day.day,
                                extract('month', Flight.departure_day) == departure_day.month,
                                extract('year', Flight.departure_day) == departure_day.year)
+
+    if time:
+        status = status.filter(Flight.departure_day >= datetime.now() + timedelta(hours=int(time)))
+
+    if flight_id:
+        status = status.filter(Flight.flight_id.__eq__(flight_id))
     return status.all()
 
 
@@ -230,7 +236,7 @@ def add_ticket(flight_id, customer_id, bill_id, ticket_type, seat_id):
 
 
 def add_bill(bill_id, employee_id, amount):
-    bill = Bill(bill_id=bill_id, employee_id=employee_id, amount=amount)
+    bill = Bill(bill_id=bill_id, employee_id=employee_id, amount=amount, status=1)
 
     db.session.add(bill)
     try:
@@ -242,3 +248,34 @@ def add_bill(bill_id, employee_id, amount):
 
 def get_seat_by_id(seat_id):
     return Seat.query.get(seat_id)
+
+
+def sales_stats(month, year):
+    stat = db.session.query(Schedule.schedule_id, func.sum(Bill.amount).label('sales'))\
+                    .join(Flight, Schedule.schedule_id.__eq__(Flight.schedule_id), isouter=True)\
+                    .join(Ticket, Flight.flight_id.__eq__(Ticket.flight_id), isouter=True)\
+                    .join(Bill, Ticket.bill_id.__eq__(Bill.bill_id))\
+                    .filter(extract('month', Flight.departure_day) == month,
+                            extract('year', Flight.departure_day) == year)\
+                    .group_by(Schedule.schedule_id)
+
+    return stat.all()
+
+
+def quantity_stats(month, year):
+    stat = db.session.query(Schedule.schedule_id, func.count(Flight.flight_id).label('quantity'))\
+                    .join(Flight, Schedule.schedule_id.__eq__(Flight.schedule_id), isouter=True)\
+                    .filter(extract('month', Flight.departure_day) == month,
+                            extract('year', Flight.departure_day) == year)\
+                    .group_by(Schedule.schedule_id)
+
+    return stat.all()
+
+
+def total_sales(month, year):
+    stat = sales_stats(month=month, year=year)
+    total = 0
+    for s in stat:
+        total = total + s.sales
+
+    return total

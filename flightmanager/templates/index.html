@@ -77,7 +77,7 @@
                                                         </datalist>
                                                     </td>
                                                     <td>
-                                                        <input type="date" name="departure_day" placeholder="Ngày giờ" required class="data-search">
+                                                        <input type="date" id="departure_day" name="departure_day" placeholder="Ngày giờ" required class="data-search">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -320,5 +320,18 @@
         }
     }
     setInterval(changeimg,1000);
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1;
+    var yyyy = today.getFullYear();
+    if(dd<10){
+      dd='0'+dd
+    }
+    if(mm<10){
+      mm='0'+mm
+    }
+
+    today = yyyy+'-'+mm+'-'+dd;
+    document.getElementById("").setAttribute("min", today);
 </script>
 {% endblock %}

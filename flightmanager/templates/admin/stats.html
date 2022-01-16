@@ -1,0 +1,128 @@
+{% extends 'admin/base.html' %}
+
+{% block body %}
+<h1 class="text-center text-danger">THỐNG KÊ BÁO CÁO</h1>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <table class="table">
+            <tr>
+                <td>Thang</td>
+            </tr>
+            <tr>
+                <th>STT</th>
+                <th>Tuyen bay</th>
+                <th>Doanh thu</th>
+                <th>So luot bay</th>
+                <th>Ty le</th>
+            </tr>
+            {% for s in sales_starts %}
+            <tr>
+                <td></td>
+                <td>{{ s.schedule_id }}</td>
+                <td>{{ s.sales }}</td>
+                {% for q in quantity_starts %}
+                {% if s.schedule_id == q.schedule_id %}
+                <td>{{ q.quantity }}</td>
+                {% endif %}
+                {% endfor %}
+                <td></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Tong doanh thu: {{ total }}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <form>
+            <div class="form-group">
+                <input type="number" class="form-control" name="month" min="1" max="12" placeholder="Nhap thang">
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" name="year" min="2010" placeholder="Nhap nam">
+            </div>
+            <input type="submit" value="Thong ke" class="btn btn-info">
+        </form>
+        <canvas id="scheduleChartMonth"></canvas>
+    </div>
+</div>
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let lables = []
+    let data1 = [], data2 = []
+    let colors = [], colors2 = []
+    let borderColors = [], borderColors2 = []
+    let r, g, b;
+
+    {% for s in sales_starts %}
+        lables.push('{{ s.schedule_id }}')
+        data1.push({{ s.sales }})
+        {% for q in quantity_starts %}
+        {% if s.schedule_id == q.schedule_id %}
+            data2.push({{ q.quantity }})
+            r = Math.random()*255
+            g = Math.random()*255
+            b = Math.random()*255
+            colors2.push(`rgba(${r}, ${g}, ${b}, 0.2)`)
+            borderColors2.push(`rgba(${r}, ${g}, ${b}, 1)`)
+        {% endif %}
+        {% endfor %}
+        r = Math.random()*255
+        g = Math.random()*255
+        b = Math.random()*255
+        colors.push(`rgba(${r}, ${g}, ${b}, 0.2)`)
+        borderColors.push(`rgba(${r}, ${g}, ${b}, 1)`)
+    {% endfor %}
+
+    // {% for s in stats %}
+    //     {% if s[2] %}
+    //     lables.push('{{ s[1] }}')
+    //     data.push({{ s[2] }})
+    //
+    //     r = Math.random()*255
+    //     g = Math.random()*255
+    //     b = Math.random()*255
+    //     colors.push(`rgba(${r}, ${g}, ${b}, 0.2)`)
+    //     borderColors.push(`rgba(${r}, ${g}, ${b}, 1)`)
+    //     {% endif %}
+    // {% endfor %}
+
+
+    window.onload = function (){
+        const ctx = document.getElementById('scheduleChartMonth').getContext('2d');
+        loadChart(ctx, lables, data1, data2, colors, colors2,  borderColors, borderColors2)
+    }
+
+    function  loadChart(ctx, lables, data1, data2, colors, colors2,  borderColors, borderColors2){
+        const myChart = new Chart(ctx, {
+            data: {
+                labels: lables,
+                datasets: [{
+                    type: 'bar',
+                    label: 'Thong ke doanh thu',
+                    data: data1,
+                    backgroundColor: colors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }, {
+                    type: 'line',
+                    label: 'Thong ke luot bay',
+                    data: data2,
+                    backgroundColor: colors2,
+                    borderColor: borderColors2,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+{% endblock%}
+{% endblock%}

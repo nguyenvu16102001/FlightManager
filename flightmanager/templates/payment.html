@@ -52,7 +52,7 @@
         <table style="width:100%;">
             <tr>
                 <td style="width:50%;">
-                    <p>Khởi hành: <span>t{{ flight.departure_day }}</span></p>
+                    <p>Khởi hành: <span>{{ flight.departure_day }}</span></p>
                     <p>Đến nơi:
                     <span>{{ flight.arrival_day }}</span></p>
                     <p>Thời gian bay:<span>{{ "{:.0f}".format(flight.flight_time / 60) + ' tiếng ' + "{:.0f}".format(flight.flight_time % 60) + ' phút' }}</span></p>
