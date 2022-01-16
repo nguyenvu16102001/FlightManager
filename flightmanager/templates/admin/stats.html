@@ -4,16 +4,17 @@
 <h1 class="text-center text-danger">THỐNG KÊ BÁO CÁO</h1>
 <div class="row">
     <div class="col-md-6 col-xs-12">
-        <table class="table">
+        <table class="table" style="border:1px solid black;">
             <tr>
                 <td>Thang</td>
+                <td><div id="current-time"></div></td>
             </tr>
             <tr>
                 <th>STT</th>
-                <th>Tuyen bay</th>
+                <th>Tuyến bay</th>
                 <th>Doanh thu</th>
-                <th>So luot bay</th>
-                <th>Ty le</th>
+                <th>Số lượt bay</th>
+                <th>Tỷ lệ</th>
             </tr>
             {% for s in sales_starts %}
             <tr>
@@ -29,19 +30,30 @@
             </tr>
             {% endfor %}
             <tr>
-                <td>Tong doanh thu: {{ total }}</td>
+                <td></td>
+                <td>Tổng doanh thu: </td>
+                <td>{{ total }}</td>
             </tr>
         </table>
     </div>
+    <script>
+var curDate = new Date();
+
+// Ngày hiện tại
+var curDay = curDate.getDate();
+var curMonth = curDate.getMonth() + 1;
+var curYear = curDate.getFullYear();
+document.getElementById('current-time').innerHTML = curMonth + "/" + curYear;
+</script>
     <div class="col-md-6 col-xs-12">
         <form>
             <div class="form-group">
-                <input type="number" class="form-control" name="month" min="1" max="12" placeholder="Nhap thang">
+                <input type="number" class="form-control" name="month" min="1" max="12" placeholder="Nhập tháng">
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" name="year" min="2010" placeholder="Nhap nam">
+                <input type="number" class="form-control" name="year" min="2010" placeholder="Nhập năm">
             </div>
-            <input type="submit" value="Thong ke" class="btn btn-info">
+            <input type="submit" value="Thống kê" class="btn btn-info">
         </form>
         <canvas id="scheduleChartMonth"></canvas>
     </div>
