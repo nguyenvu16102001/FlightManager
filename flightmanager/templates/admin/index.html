@@ -2,8 +2,12 @@
 
 {% block body %}
     {% if current_user.is_authenticated %}
-
-<h1>dfgsd</h1>
+<style>
+    body{
+        background-image: url('https://res.cloudinary.com/du3xpvajy/image/upload/v1639928666/cnpm/image_foqm14.png');
+    }
+</style>
+<h1 style="text-align:center; color:white; margin-top:100px;">Chào mừng đến với trang quản trị</h1>
     {% else %}
         {% block login %}
             {% include 'admin/login.html' %}

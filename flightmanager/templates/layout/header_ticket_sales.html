@@ -18,17 +18,6 @@
                 <li class="active">
 	            <a href="{{url_for('ticket_sales')}}">Home</a>
 	          </li>
-<!--	          <li>-->
-<!--              <a href="#pageSubmenu" data-toggle="collapse" >Pages</a>-->
-<!--                  <ul class="collapse" id="pageSubmenu">-->
-<!--                <li>-->
-<!--                    <a href="#demo" data-toggle="collapse" data-target="#demo" >Mua vé</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="#demo1" data-toggle="collapse" data-target="#demo1">Tình trạng chuyến bay</a>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--	          </li>-->
                 {% if current_user.is_authenticated %}
                 <li>
                     <a class="nav-link text-success" href="{{ url_for('user_logout', name = 'user_login') }}">Dang Xuat</a>

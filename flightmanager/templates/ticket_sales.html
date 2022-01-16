@@ -2,35 +2,30 @@
 
 {% block title %}Bán Vé{% endblock %}
 {% block content %}
-{% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated %}
 
-<!-- Google font -->
-<link href="https://fonts.googleapis.com/css?family=PT+Sans:400" rel="stylesheet">
-<!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+    <!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=PT+Sans:400" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
 
 
-<!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-<script src="url_for('https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js')"></script>
-<script src="url_for('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js') "></script>
-<script src="url_for('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')"></script>
+	<!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="url_for('https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js')"></script>
+    <script src="url_for('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js') "></script>
+    <script src="url_for('https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js')"></script>
 <div id="accordion">
-    {% if err_msg %}
-        {{ err_msg }}
-    {% endif %}
     <table class="wrap-menu">
         <tr style="height:50px;">
             <td>
                 <button data-toggle="collapse" data-target="#demo" class="button-menu">Bán vé</button>
             </td>
-            <td>
+            <td >
                 <button data-toggle="collapse" data-target="#demo1" class="button-menu">Tìm kiếm</button>
             </td>
             <td>
-                <a href="{{url_for('flight_scheduling')}}">
-                    <button class="button-menu">Lập lịch chuyến bay</button>
-                </a>
+                <a href="{{url_for('flight_scheduling')}}"><button class="button-menu" >Lập lịch chuyến bay</button></a>
             </td>
         </tr>
     </table>
@@ -38,278 +33,157 @@
         <div id="ticket">
             <div class="row">
                 <div class="booking-form" style="width:96%; margin-top:10px;">
-                    <form action="{{ url_for('ticket_sales') }}">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <span class="form-label">Mã chuyến bay</span>
-                                <input class="form-control" type="text" name="flight_id" placeholder="Mã chuyến bay" required>
+                    <form>
+                        <div class="form-group">
+                            <div class="form-checkbox">
+                                <br>
+                                <label>
+            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_go1"> Một chiều<span></span>
+                                </label>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <span class="form-label">Hạng vé</span>
-                                <input class="form-control" list="ticket_types" name="ticket_type" required>
-                                <datalist id="ticket_types">
-                                  <option value="1">Hạng thương gia</option>
-                                    <option value="2">Hạng phổ thông</option>
-                                </datalist>
-                            </div>
-                        </div>
-                        <input value="Show flights" class="search-button" type="submit">
-
-<!--                        <div class="form-group">-->
-<!--                            <div class="form-checkbox">-->
-<!--                                <br>-->
-<!--                                <label>-->
-<!--                                    <input type="radio" name="ticket_go" data-toggle="collapse"-->
-<!--                                           data-target="#ticket_go"> Khứ hồi-->
-<!--                                </label>-->
-<!--                                <label>-->
-<!--                                    <input type="radio" name="ticket_go" data-toggle="collapse"-->
-<!--                                           data-target="#ticket_go1"> Một chiều <span></span>One way-->
-<!--                                </label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div id="ticket_go" class="collapse" data-parent="#ticket">-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-6">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Flying from</span>-->
-<!--                                        <input class="form-control" type="text" placeholder="City or airport">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Flyning to</span>-->
-<!--                                        <input class="form-control" type="text" placeholder="City or airport">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-3">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Departing</span>-->
-<!--                                        <input class="form-control" type="date" required>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-3">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Returning</span>-->
-<!--                                        <input class="form-control" type="date" required>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-2">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Adults (18+)</span>-->
-<!--                                        <select class="form-control">-->
-<!--                                            <option>1</option>-->
-<!--                                            <option>2</option>-->
-<!--                                            <option>3</option>-->
-<!--                                        </select>-->
-<!--                                        <span class="select-arrow"></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-2">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Children (0-17)</span>-->
-<!--                                        <select class="form-control">-->
-<!--                                            <option>0</option>-->
-<!--                                            <option>1</option>-->
-<!--                                            <option>2</option>-->
-<!--                                        </select>-->
-<!--                                        <span class="select-arrow"></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-3">-->
-<!--                                    <div class="form-btn">-->
-<!--                                        <button class="submit-btn">Show flights</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div id="ticket_go1" class="collapse" data-parent="#ticket">-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-6">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Flying from</span>-->
-<!--                                        <input class="form-control" type="text" placeholder="City or airport">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Flyning to</span>-->
-<!--                                        <input class="form-control" type="text" placeholder="City or airport">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-3">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Departing</span>-->
-<!--                                        <input class="form-control" type="date" required>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                                <div class="col-md-2">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Adults (18+)</span>-->
-<!--                                        <select class="form-control">-->
-<!--                                            <option>1</option>-->
-<!--                                            <option>2</option>-->
-<!--                                            <option>3</option>-->
-<!--                                        </select>-->
-<!--                                        <span class="select-arrow"></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-2">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <span class="form-label">Children (0-17)</span>-->
-<!--                                        <select class="form-control">-->
-<!--                                            <option>0</option>-->
-<!--                                            <option>1</option>-->
-<!--                                            <option>2</option>-->
-<!--                                        </select>-->
-<!--                                        <span class="select-arrow"></span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-md-3">-->
-<!--                                    <div class="form-btn">-->
-<!--                                        <button class="submit-btn">Show flights</button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-                    </form>
+            <div id="ticket_go1" class="collapse" data-parent="#ticket">
+                <div class="row">
+                    <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Flying from</span>
+                                                                <input class="form-control" type="text" placeholder="City or airport">
+                                                            </div>
+                                                        </div>
+                    <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Flyning to</span>
+                                                                <input class="form-control" type="text" placeholder="City or airport">
+                                                            </div>
+                                                        </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="demo1" class="collapse" data-parent="#accordion">
-    <div id="ticket1">
-        <div class="row">
-            <div class="booking-form" style="width:96%; margin-top:10px;">
-                <div class="form-group">
-                    <div class="form-checkbox">
-                        <label>
-                            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_goa"
-                                   checked> tìm theo điểm đi và điểm đến
-                        </label>
-                        <label>
-                            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_go1a"> tìm
-                            theo chuyến <span></span>One way
-                        </label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <span class="form-label">Departing</span>
+                            <input class="form-control" type="date" required>
+                        </div>
                     </div>
                 </div>
-                <div id="ticket_goa" class="collapse" data-parent="#ticket1">
-                    <form action="{{ url_for('flight_information') }}">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="form-label">Mã chuyến bay</span>
-                                    <input class="form-control" type="text" name="flight_id"
-                                           placeholder="Flight number">
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-btn">
+                            <button class="submit-btn">Show flights</button>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-btn">
-                                    <input value="Show flights" class="search-button" type="submit">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-                <div id="ticket_go1a" class="collapse" data-parent="#ticket1">
-                    <form action="{{ url_for('flight_information') }}">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="form-label">Flying from</span>
-                                    <input list="departure_airports" name="departure_airport" placeholder="Sân bay đi"
-                                           required class="data-search">
-                                    <datalist id="departure_airports">
-                                        {% for a in airports %}
-                                        <option value="{{ a.airport_id }}">{{ a.location }}</option>
-                                        {% endfor %}
-                                    </datalist>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <span class="form-label">Flyning to</span>
-                                    <input list="arrival_airports" name="arrival_airport" placeholder="Sân bay đến"
-                                           required class="data-search">
-                                    <datalist id="arrival_airports">
-                                        {% for a in airports %}
-                                        <option value="{{ a.airport_id }}">{{ a.location }}</option>
-                                        {% endfor %}
-                                    </datalist>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <span class="form-label">Departing</span>
-                                    <input type="date" name="departure_day" placeholder="Ngày giờ" required
-                                           class="data-search">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-btn">
-                                    <input value="Show flights" class="search-button" type="submit">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            </div>
+            </form>
+                    </div>
             </div>
         </div>
     </div>
+    </div>
+
+    <div id="demo1" class="collapse" data-parent="#accordion">
+        <div id="ticket1">
+            <div class="row">
+                <div class="booking-form" style="width:96%; margin-top:10px;">
+                    <form>
+                        <div class="form-group">
+                            <div class="form-checkbox">
+                                <label>
+            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_goa"  checked> tìm theo điểm đi và điểm đến
+                                </label>
+                                <label>
+            <input type="radio" name="ticket_go" data-toggle="collapse" data-target="#ticket_go1a"> tìm theo chuyến                                                             <span></span>One way
+                                </label>
+                            </div>
+                        </div>
+            <div id="ticket_goa" class="collapse" data-parent="#ticket1">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <span class="form-label">Mã chuyến bay</span>
+                            <input class="form-control" type="text" placeholder="Flight number">
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-btn">
+                            <button class="submit-btn">Show flights</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ticket_go1a" class="collapse" data-parent="#ticket1">
+                <div class="row">
+                    <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Flying from</span>
+                                                                <input class="form-control" type="text" placeholder="City or airport">
+                                                            </div>
+                                                        </div>
+                    <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Flyning to</span>
+                                                                <input class="form-control" type="text" placeholder="City or airport">
+                                                            </div>
+                                                        </div>
+                </div>
+                <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="form-group">
+                                                                <span class="form-label">Departing</span>
+                                                                <input class="form-control" type="date" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-btn">
+                                                                <button class="submit-btn">Show flights</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+            </div>
+            </form>
+                    </div>
+            </div>
+        </div>
+
+    </div>
 </div>
-</div>
-{% else %}
-{% if err_msg %}
+<!--&gt;>>>>>> 6179d4d (ticket_sales and flight_sheduling)-->
+    {% else %}
+    {% if err_msg %}
 <style>
-    .alert {
-        padding: 20px;
-        background-color: #f44336;
-        color: white;
-        width: 70%;
-        margin: auto;
-        margin-top: 35px;
-    }
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  width:70%;
+  margin:auto;
+  margin-top:35px;
+}
 
-    .closebtn {
-        margin-left: 15px;
-        color: white;
-        font-weight: bold;
-        float: right;
-        font-size: 22px;
-        line-height: 20px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .closebtn:hover {
-        color: black;
-    }
+.closebtn:hover {
+  color: black;
+}
 </style>
 
 <div class="alert" style="position:relative;">
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-    <strong>Danger!</strong> Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại.
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>Danger!</strong> Sai mật khẩu hoặc tên đăng nhập. Vui lòng nhập lại.
 </div>
-{% endif %}
+        {% endif %}
 {% block login %}
-{% include 'employee_login.html' %}
+            {% include 'employee_login.html' %}
 {% endblock %}
-{% endif %}
+    {% endif %}
 {% endblock %}
